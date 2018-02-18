@@ -4,7 +4,6 @@ namespace OrbitronDev\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
@@ -13,10 +12,6 @@ class OrbitronDev extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    /**
-     * {@inheritDoc}
-     * @see \League\OAuth2\Client\Provider\AbstractProvider::ACCESS_TOKEN_RESOURCE_OWNER_ID
-     */
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
@@ -28,7 +23,7 @@ class OrbitronDev extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return 'http://account.localhost/oauth/authorize';
+        return 'https://account.orbitrondev.org/oauth/authorize';
     }
 
     /**
@@ -36,25 +31,25 @@ class OrbitronDev extends AbstractProvider
      *
      * Eg. https://oauth.service.com/token
      *
-     * @param array $params
+     * @param array $params Special parameters
      *
      * @return string
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return 'http://account.localhost/oauth/token';
+        return 'https://account.orbitrondev.org/oauth/token';
     }
 
     /**
      * Returns the URL for requesting the resource owner's details.
      *
-     * @param AccessToken $token
+     * @param AccessToken $token The received access token from the server
      *
      * @return string
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return 'http://account.localhost/oauth/resource';
+        return 'https://account.orbitrondev.org/oauth/resource';
     }
 
     /**
@@ -83,22 +78,21 @@ class OrbitronDev extends AbstractProvider
     /**
      * Checks a provider response for errors.
      *
-     * @throws IdentityProviderException
-     *
-     * @param  ResponseInterface $response
-     * @param  array|string      $data Parsed response data
+     * @param ResponseInterface $response The response from the server
+     * @param array|string      $data     Parsed response data
      *
      * @return void
+     * @throws IdentityProviderException
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
         if ($response->getStatusCode() >= 400) {
-            throw new IdentityProviderException(
-                isset($data['message']) ? $data['message'] : $response->getReasonPhrase(),
-                $response->getStatusCode(),
-                $response->getBody()
-            );
+            $errorMessage = isset($data['message']) ? $data['message'] : $response->getReasonPhrase();
         } elseif (isset($data['error'])) {
+            $errorMessage = isset($data['error']) ? $data['error'] : $response->getReasonPhrase();
+        }
+
+        if (isset($errorMessage)) {
             throw new IdentityProviderException(
                 isset($data['error']) ? $data['error'] : $response->getReasonPhrase(),
                 $response->getStatusCode(),
@@ -111,10 +105,10 @@ class OrbitronDev extends AbstractProvider
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
-     * @param  array       $response
-     * @param  AccessToken $token
+     * @param array       $response Response data from server
+     * @param AccessToken $token    The used access token
      *
-     * @return ResourceOwnerInterface
+     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {

@@ -16,9 +16,9 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     /**
      * Creates new resource owner.
      *
-     * @param array $response
+     * @param array $response Data received from the server about the user
      */
-    public function __construct(array $response = array())
+    public function __construct(array $response = [])
     {
         $this->response = $response;
     }
@@ -34,6 +34,8 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Return the username
+     *
      * @return string|null
      */
     public function getUsername()
@@ -42,6 +44,8 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Return the email
+     *
      * @return string|null
      */
     public function getEmail()
@@ -50,6 +54,8 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Return the first name
+     *
      * @return string|null
      */
     public function getFirstName()
@@ -58,6 +64,8 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Return the surname
+     *
      * @return string|null
      */
     public function getSurname()
@@ -66,6 +74,8 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Return the birthday
+     *
      * @return \DateTime|null
      */
     public function getBirthday()
@@ -74,6 +84,8 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Return the subscription
+     *
      * @return string|null
      */
     public function getSubscription()
