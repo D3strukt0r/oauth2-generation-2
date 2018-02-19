@@ -1,6 +1,6 @@
 # OrbitronDev Provider for OAuth 2.0 Client
 
-[![Build Status](https://img.shields.io/travis/orbitrondev/oauth2-orbitrondev.svg)](https://travis-ci.org/OrbitronDev/oauth2-orbitrondev)
+[![Build Status](https://img.shields.io/travis/OrbitronDev/oauth2-orbitrondev.svg)](https://travis-ci.org/OrbitronDev/oauth2-orbitrondev)
 [![Code Coverage](https://img.shields.io/coveralls/orbitrondev/oauth2-orbitrondev.svg)](https://coveralls.io/r/OrbitronDev/oauth2-orbitrondev)
 [![Code Quality](https://img.shields.io/scrutinizer/g/orbitrondev/oauth2-orbitrondev.svg)](https://scrutinizer-ci.com/g/orbitrondev/oauth2-orbitrondev/)
 [![License](https://img.shields.io/packagist/l/orbitrondev/oauth2-orbitrondev.svg)](https://github.com/orbitrondev/oauth2-orbitrondev/blob/master/LICENSE.md)
@@ -40,24 +40,35 @@ composer require orbitrondev/oauth2-orbitrondev
 
 ```php
 $provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDev([
-    'clientId'     => '{app-id}',
-    'clientSecret' => '{app-secret}',
+    'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
+    'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
 ]);
 
 if (!empty($_GET['error'])) {
 
     // Got an error, probably user denied access
-    exit('Got error: ' . htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
+    unset($_SESSION['oauth2state']);
+    exit('Got error: '.htmlspecialchars($_GET['error_description']).' ('.htmlspecialchars($_GET['error']).')');
 
-} elseif (empty($_GET['code'])) {
+// If we don't have an authorization code then get one
+} elseif (!isset($_GET['code'])) {
 
-    // If we don't have an authorization code then get one
-    $authUrl = $provider->getAuthorizationUrl();
+    // Fetch the authorization URL from the provider; this returns the
+    // urlAuthorize option and generates and applies any necessary parameters
+    // (e.g. state).
+    $authorizationUrl = $provider->getAuthorizationUrl([
+        'scope' => 'user:id user:email',
+    ]);
+
+    // Get the state generated for you and store it to the session.
     $_SESSION['oauth2state'] = $provider->getState();
-    header('Location: ' . $authUrl);
+
+    // Redirect the user to the authorization URL.
+    header('Location: '.$authorizationUrl);
     exit;
 
+// Check given state against previously stored one to mitigate CSRF attack
 } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
 
     // State is invalid, possible CSRF attack in progress
@@ -65,36 +76,35 @@ if (!empty($_GET['error'])) {
     exit('Invalid state');
 
 } else {
-
-    // Try to get an access token (using the authorization code grant)
-    $token = $provider->getAccessToken('authorization_code', [
-        'code' => $_GET['code']
-    ]);
-
-    // Optional: Now you have a token you can look up a users profile data
     try {
+
+        // Try to get an access token using the authorization code grant.
+        $accessToken = $provider->getAccessToken('authorization_code', [
+            'code' => $_GET['code'],
+        ]);
+
+        // Use this to interact with an API on the users behalf
+        echo $token->getToken();
+    
+        // Use this to get a new access token if the old one expires
+        echo $token->getRefreshToken();
+    
+        // Exact timestamp when the access token will expire, and need refreshing
+        echo $token->getExpires();
+    
+        // Optional: Now you have a token you can look up a users profile data
 
         // We got an access token, let's now get the owner details
         $ownerDetails = $provider->getResourceOwner($token);
 
         // Use these details to create a new profile
-        printf('Hello %s!', $ownerDetails->getFirstName());
+        printf('Hello %s!', $ownerDetails->getId());
 
-    } catch (Exception $e) {
+    } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
 
-        // Failed to get user details
-        exit('Something went wrong: ' . $e->getMessage());
-
+        // Failed to get the access token or user details.
+        exit($e->getMessage());
     }
-
-    // Use this to interact with an API on the users behalf
-    echo $token->getToken();
-
-    // Use this to get a new access token if the old one expires
-    echo $token->getRefreshToken();
-
-    // Number of seconds until the access token will expire, and need refreshing
-    echo $token->getExpires();
 }
 ```
 
@@ -104,8 +114,8 @@ Refresh tokens are only provided to applications which request offline access. Y
 
 ```php
 $provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDev([
-    'clientId'     => '{app-id}',
-    'clientSecret' => '{app-secret}',
+    'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
+    'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
 ]);
 ```
@@ -113,50 +123,51 @@ $provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDev([
 It is important to note that the refresh token is only returned on the first request after this it will be `null`. You should securely store the refresh token when it is returned:
 
 ```php
-$token = $provider->getAccessToken('authorization_code', [
+$accessToken = $provider->getAccessToken('authorization_code', [
     'code' => $code
 ]);
 
 // persist the token in a database
-$refreshToken = $token->getRefreshToken();
+$refreshToken = $accessToken->getRefreshToken();
 ```
 
 If you ever need to get a new refresh token you can request one by forcing the approval prompt:
 
 ```php
-$authUrl = $provider->getAuthorizationUrl(['approval_prompt' => 'force']);
+$authorizationUrl = $provider->getAuthorizationUrl(['approval_prompt' => 'force']);
 ```
 
 Now you have everything you need to refresh an access token using a refresh token:
 
 ```php
 $provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDev([
-    'clientId'     => '{app-id}',
-    'clientSecret' => '{app-secret}',
+    'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
+    'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
 ]);
 
-$grant = new League\OAuth2\Client\Grant\RefreshToken();
-$token = $provider->getAccessToken($grant, ['refresh_token' => $refreshToken]);
+$newAccessToken = $provider->getAccessToken('refresh_token', [
+    'refresh_token' => $oldAccessToken->getRefreshToken()
+]);
 ```
 
 ## Scopes
 
 If needed, you can include an array of scopes when getting the authorization url. Example:
 
-```
+```php
 $authorizationUrl = $provider->getAuthorizationUrl([
     'scope' => [
-        'user:email',
+        'user:id user:email',
     ]
 ]);
-header('Location: ' . $authorizationUrl);
+header('Location: '.$authorizationUrl);
 exit;
 ```
 
 ## Testing
 
-``` bash
+```bash
 $ ./vendor/bin/phpunit
 ```
 
