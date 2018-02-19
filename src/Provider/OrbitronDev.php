@@ -94,7 +94,7 @@ class OrbitronDev extends AbstractProvider
 
         if (isset($errorMessage)) {
             throw new IdentityProviderException(
-                isset($data['error']) ? $data['error'] : $response->getReasonPhrase(),
+                $errorMessage,
                 $response->getStatusCode(),
                 $response->getBody()
             );

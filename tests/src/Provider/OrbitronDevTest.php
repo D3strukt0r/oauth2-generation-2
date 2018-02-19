@@ -9,6 +9,7 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
 {
     use QueryBuilderTrait;
 
+    /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDev */
     protected $provider;
 
     protected function setUp()
@@ -51,14 +52,17 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
     {
         $url = $this->provider->getAuthorizationUrl();
         $uri = parse_url($url);
+
         $this->assertEquals('/oauth/authorize', $uri['path']);
     }
 
     public function testGetBaseAccessTokenUrl()
     {
         $params = [];
+
         $url = $this->provider->getBaseAccessTokenUrl($params);
         $uri = parse_url($url);
+
         $this->assertEquals('/oauth/token', $uri['path']);
     }
 
@@ -67,10 +71,13 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
         $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
         $response->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","user": {"id": "123","username": "snoopdogg","full_name": "Snoop Dogg","profile_picture": "..."}}');
         $response->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+
         $client = Mockery::mock('GuzzleHttp\ClientInterface');
         $client->shouldReceive('send')->times(1)->andReturn($response);
         $this->provider->setHttpClient($client);
+
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
+
         $this->assertEquals('mock_access_token', $token->getToken());
         $this->assertNull($token->getExpires());
         $this->assertNull($token->getRefreshToken());
@@ -84,19 +91,25 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
         $nickname = uniqid();
         $picture = uniqid();
         $description = uniqid();
+
         $postResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
         $postResponse->shouldReceive('getBody')->andReturn('{"access_token": "mock_access_token","user": {"id": "1574083","username": "snoopdogg","full_name": "Snoop Dogg","profile_picture": "..."}}');
         $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+
         $userResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
         $userResponse->shouldReceive('getBody')->andReturn('{"data": {"id": "'.$userId.'", "username": "'.$nickname.'", "full_name": "'.$name.'", "bio": "'.$description.'", "profile_picture": "'.$picture.'"}}');
         $userResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+
         $client = Mockery::mock('GuzzleHttp\ClientInterface');
         $client->shouldReceive('send')
             ->times(2)
             ->andReturn($postResponse, $userResponse);
         $this->provider->setHttpClient($client);
+
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
+        /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevResourceOwner $user */
         $user = $this->provider->getResourceOwner($token);
+
         $this->assertEquals($userId, $user->getId());
         $this->assertEquals($userId, $user->toArray()['id']);
         $this->assertEquals($name, $user->getUsername());
@@ -114,7 +127,7 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @expectedException \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      **/
     public function testExceptionThrownWhenErrorObjectReceived()
     {
@@ -134,7 +147,7 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @expectedException \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      **/
     public function testExceptionThrownWhenAuthErrorObjectReceived()
     {
