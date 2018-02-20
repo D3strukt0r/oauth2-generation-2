@@ -9,12 +9,12 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
 {
     use QueryBuilderTrait;
 
-    /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDev */
+    /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider */
     protected $provider;
 
     protected function setUp()
     {
-        $this->provider = new \OrbitronDev\OAuth2\Client\Provider\OrbitronDev(
+        $this->provider = new \OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider(
             [
             'clientId' => 'mock_client_id',
             'clientSecret' => 'mock_secret',

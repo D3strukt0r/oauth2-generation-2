@@ -39,7 +39,7 @@ composer require orbitrondev/oauth2-orbitrondev
 ### Authorization Code Flow
 
 ```php
-$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDev([
+$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider([
     'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
     'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
@@ -113,7 +113,7 @@ if (!empty($_GET['error'])) {
 Refresh tokens are only provided to applications which request offline access. You can specify offline access by setting the `accessType` option in your provider:
 
 ```php
-$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDev([
+$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider([
     'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
     'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
@@ -140,7 +140,7 @@ $authorizationUrl = $provider->getAuthorizationUrl(['approval_prompt' => 'force'
 Now you have everything you need to refresh an access token using a refresh token:
 
 ```php
-$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDev([
+$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider([
     'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
     'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
