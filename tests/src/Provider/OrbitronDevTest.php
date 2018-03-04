@@ -4,6 +4,7 @@ namespace OrbitronDev\OAuth2\Client\Test\Provider;
 
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use Mockery;
+use OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider;
 
 class OrbitronDevTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,13 +15,30 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->provider = new \OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider(
-            [
-            'clientId' => 'mock_client_id',
+        $this->provider = new OrbitronDevProvider([
+            'clientId'     => 'mock_client_id',
             'clientSecret' => 'mock_secret',
-            'redirectUri' => 'none',
-            ]
-        );
+            'redirectUri'  => 'none',
+        ]);
+    }
+
+    public function testSetHostInConfig()
+    {
+        $host = uniqid();
+        $provider = new OrbitronDevProvider([
+            'clientId'     => 'mock_client_id',
+            'clientSecret' => 'mock_secret',
+            'redirectUri'  => 'none',
+            'host'         => $host,
+        ]);
+        $this->assertEquals($host, $provider->getHost());
+    }
+
+    public function testSetHostAfterConfig()
+    {
+        $host = uniqid();
+        $this->provider->setHost($host);
+        $this->assertEquals($host, $this->provider->getHost());
     }
 
     public function testAuthorizationUrl()

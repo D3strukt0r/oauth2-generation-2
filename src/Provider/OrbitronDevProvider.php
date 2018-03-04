@@ -15,6 +15,36 @@ class OrbitronDevProvider extends AbstractProvider
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
+     * Default host
+     *
+     * @var string
+     */
+    protected $host = 'https://account.orbitrondev.org';
+
+    /**
+     * Gets host.
+     *
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * Sets host. Can be used for example when you testing the service-account in localhost
+     *
+     * @param string $host The domain for accessing the user data
+     *
+     * @return string
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+        return $this;
+    }
+
+    /**
      * Returns the base URL for authorizing a client.
      *
      * Eg. https://oauth.service.com/authorize
@@ -23,7 +53,7 @@ class OrbitronDevProvider extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return 'https://account.orbitrondev.org/oauth/authorize';
+        return $this->host.'/oauth/authorize';
     }
 
     /**
@@ -37,7 +67,7 @@ class OrbitronDevProvider extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return 'https://account.orbitrondev.org/oauth/token';
+        return $this->host.'/oauth/token';
     }
 
     /**
@@ -49,7 +79,7 @@ class OrbitronDevProvider extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return 'https://account.orbitrondev.org/oauth/resource';
+        return $this->host.'/oauth/resource';
     }
 
     /**
