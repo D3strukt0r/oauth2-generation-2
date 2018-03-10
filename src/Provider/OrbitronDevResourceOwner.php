@@ -84,6 +84,33 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Return the surname
+     *
+     * @return array|null
+     */
+    public function getActiveAddress()
+    {
+        if (is_null($this->getAddresses())) {
+            return null;
+        }
+        if (is_null($this->response['active_address'])) {
+            return null;
+        }
+
+        return $this->getAddresses()[$this->response['active_address']];
+    }
+
+    /**
+     * Return the surname
+     *
+     * @return array|null
+     */
+    public function getAddresses()
+    {
+        return $this->response['addresses'] ?: null;
+    }
+
+    /**
      * Return the subscription
      *
      * @return string|null
