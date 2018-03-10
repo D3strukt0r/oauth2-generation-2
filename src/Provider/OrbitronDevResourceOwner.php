@@ -93,6 +93,13 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
         if (is_null($this->getAddresses())) {
             return null;
         }
+
+        if (count($this->getAddresses()) == 1) {
+            foreach ($this->getAddresses() as $address) {
+                return $address;
+            }
+        }
+
         if (is_null($this->response['active_address'])) {
             return null;
         }
