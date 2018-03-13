@@ -39,8 +39,8 @@
     ],
     "minimum-stability": "stable",
     "scripts": {
-        "test": "phpunit",
         "check": "phpcs --standard=psr2 -sp src/",
+        "test": "phpunit",
         "upload-coveralls": "php-coveralls -v",
         "upload-scrutinizer": [
             "wget https://scrutinizer-ci.com/ocular.phar",

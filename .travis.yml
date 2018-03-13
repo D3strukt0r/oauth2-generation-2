@@ -1,20 +1,34 @@
 language: php
 
+sudo: false
+dist: trusty
+
 cache:
   directories:
-    - vendor
     - $HOME/.composer/cache
+    - vendor
 
 php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
   - hhvm
+  - nightly
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: nightly
+
+before_install:
+  - composer validate
+
+install:
+  - composer install --no-interaction --no-progress
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source
-  - travis_retry phpenv rehash
+  - phpenv rehash
 
 script:
   - composer run check
@@ -26,3 +40,6 @@ after_script:
       composer run upload-coveralls
       composer run upload-scrutinizer
     fi
+
+notifications:
+  email: false
