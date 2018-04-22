@@ -1,8 +1,8 @@
 # OrbitronDev Provider for OAuth 2.0 Client
 
-[![Build Status](https://img.shields.io/travis/OrbitronDev/oauth2-orbitrondev.svg)](https://travis-ci.org/OrbitronDev/oauth2-orbitrondev)
-[![Code Coverage](https://img.shields.io/coveralls/orbitrondev/oauth2-orbitrondev.svg)](https://coveralls.io/r/OrbitronDev/oauth2-orbitrondev)
-[![Code Quality](https://img.shields.io/scrutinizer/g/orbitrondev/oauth2-orbitrondev.svg)](https://scrutinizer-ci.com/g/orbitrondev/oauth2-orbitrondev/)
+[![Build Status](https://img.shields.io/travis/D3strukt0r/oauth2-orbitrondev.svg)](https://travis-ci.org/OrbitronDev/oauth2-orbitrondev)
+[![Code Coverage](https://img.shields.io/coveralls/D3strukt0r/oauth2-orbitrondev.svg)](https://coveralls.io/r/OrbitronDev/oauth2-orbitrondev)
+[![Code Quality](https://img.shields.io/scrutinizer/g/d3strukt0r/oauth2-orbitrondev.svg)](https://scrutinizer-ci.com/g/orbitrondev/oauth2-orbitrondev/)
 [![License](https://img.shields.io/packagist/l/orbitrondev/oauth2-orbitrondev.svg)](https://github.com/orbitrondev/oauth2-orbitrondev/blob/master/LICENSE.md)
 [![Latest Stable Version](https://img.shields.io/packagist/v/orbitrondev/oauth2-orbitrondev.svg)](https://packagist.org/packages/orbitrondev/oauth2-orbitrondev)
 
@@ -31,7 +31,7 @@ The following versions of PHP are supported.
 
 To install, use composer:
 
-```
+```bash
 composer require orbitrondev/oauth2-orbitrondev
 ```
 
