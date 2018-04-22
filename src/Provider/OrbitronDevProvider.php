@@ -15,7 +15,7 @@ class OrbitronDevProvider extends AbstractProvider
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
-     * Default host
+     * Default host.
      *
      * @var string
      */
@@ -32,7 +32,7 @@ class OrbitronDevProvider extends AbstractProvider
     }
 
     /**
-     * Sets host. Can be used for example when you testing the service-account in localhost
+     * Sets host. Can be used for example when you testing the service-account in localhost.
      *
      * @param string $host The domain for accessing the user data
      *
@@ -41,6 +41,7 @@ class OrbitronDevProvider extends AbstractProvider
     public function setHost($host)
     {
         $this->host = $host;
+
         return $this;
     }
 
@@ -111,7 +112,6 @@ class OrbitronDevProvider extends AbstractProvider
      * @param ResponseInterface $response The response from the server
      * @param array|string      $data     Parsed response data
      *
-     * @return void
      * @throws IdentityProviderException
      */
     protected function checkResponse(ResponseInterface $response, $data)

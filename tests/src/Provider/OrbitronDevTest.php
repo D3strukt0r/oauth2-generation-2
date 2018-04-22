@@ -5,8 +5,9 @@ namespace OrbitronDev\OAuth2\Client\Test\Provider;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use Mockery;
 use OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider;
+use PHPUnit\Framework\TestCase;
 
-class OrbitronDevTest extends \PHPUnit_Framework_TestCase
+class OrbitronDevTest extends TestCase
 {
     use QueryBuilderTrait;
 
@@ -16,9 +17,10 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->provider = new OrbitronDevProvider([
-            'clientId'     => 'mock_client_id',
+            'clientId' => 'mock_client_id',
             'clientSecret' => 'mock_secret',
-            'redirectUri'  => 'none',
+            'redirectUri' => 'none',
+            'host' => 'https://service-account.herokuapp.com',
         ]);
     }
 
@@ -26,19 +28,19 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
     {
         $host = uniqid();
         $provider = new OrbitronDevProvider([
-            'clientId'     => 'mock_client_id',
+            'clientId' => 'mock_client_id',
             'clientSecret' => 'mock_secret',
-            'redirectUri'  => 'none',
-            'host'         => $host,
+            'redirectUri' => 'none',
+            'host' => $host,
         ]);
-        $this->assertEquals($host, $provider->getHost());
+        $this->assertSame($host, $provider->getHost());
     }
 
     public function testSetHostAfterConfig()
     {
         $host = uniqid();
         $this->provider->setHost($host);
-        $this->assertEquals($host, $this->provider->getHost());
+        $this->assertSame($host, $this->provider->getHost());
     }
 
     public function testAuthorizationUrl()
@@ -71,7 +73,7 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
         $url = $this->provider->getAuthorizationUrl();
         $uri = parse_url($url);
 
-        $this->assertEquals('/oauth/authorize', $uri['path']);
+        $this->assertSame('/oauth/authorize', $uri['path']);
     }
 
     public function testGetBaseAccessTokenUrl()
@@ -81,7 +83,7 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
         $url = $this->provider->getBaseAccessTokenUrl($params);
         $uri = parse_url($url);
 
-        $this->assertEquals('/oauth/token', $uri['path']);
+        $this->assertSame('/oauth/token', $uri['path']);
     }
 
     public function testGetAccessToken()
@@ -96,10 +98,10 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
 
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
 
-        $this->assertEquals('mock_access_token', $token->getToken());
+        $this->assertSame('mock_access_token', $token->getToken());
         $this->assertNull($token->getExpires());
         $this->assertNull($token->getRefreshToken());
-        $this->assertEquals('123', $token->getResourceOwnerId());
+        $this->assertSame('123', $token->getResourceOwnerId());
     }
 
     public function testUserData()
@@ -128,20 +130,20 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
         /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevResourceOwner $user */
         $user = $this->provider->getResourceOwner($token);
 
-        $this->assertEquals($userId, $user->getId());
-        $this->assertEquals($userId, $user->toArray()['id']);
-        $this->assertEquals($name, $user->getUsername());
-        $this->assertEquals($name, $user->toArray()['username']);
-        $this->assertEquals($nickname, $user->getEmail());
-        $this->assertEquals($nickname, $user->toArray()['email']);
-        $this->assertEquals($picture, $user->getFirstName());
-        $this->assertEquals($picture, $user->toArray()['name']);
-        $this->assertEquals($description, $user->getSurname());
-        $this->assertEquals($description, $user->toArray()['surname']);
-        $this->assertEquals($description, $user->getBirthday()->getTimestamp());
-        $this->assertEquals($description, $user->toArray()['birthday']);
-        $this->assertEquals($description, $user->getSubscription());
-        $this->assertEquals($description, $user->toArray()['subscription_type']);
+        $this->assertSame($userId, $user->getId());
+        $this->assertSame($userId, $user->toArray()['id']);
+        $this->assertSame($name, $user->getUsername());
+        $this->assertSame($name, $user->toArray()['username']);
+        $this->assertSame($nickname, $user->getEmail());
+        $this->assertSame($nickname, $user->toArray()['email']);
+        $this->assertSame($picture, $user->getFirstName());
+        $this->assertSame($picture, $user->toArray()['name']);
+        $this->assertSame($description, $user->getSurname());
+        $this->assertSame($description, $user->toArray()['surname']);
+        $this->assertSame($description, $user->getBirthday()->getTimestamp());
+        $this->assertSame($description, $user->toArray()['birthday']);
+        $this->assertSame($description, $user->getSubscription());
+        $this->assertSame($description, $user->toArray()['subscription_type']);
     }
 
     /**
@@ -199,7 +201,7 @@ class OrbitronDevTest extends \PHPUnit_Framework_TestCase
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
         $authenticatedRequest = $this->provider->getAuthenticatedRequest($method, $url, $token);
         $this->assertInstanceOf('Psr\Http\Message\RequestInterface', $authenticatedRequest);
-        $this->assertEquals($method, $authenticatedRequest->getMethod());
+        $this->assertSame($method, $authenticatedRequest->getMethod());
         $this->assertContains('access_token=mock_access_token', $authenticatedRequest->getUri()->getQuery());
     }
 }

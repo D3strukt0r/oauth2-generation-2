@@ -7,7 +7,7 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 class OrbitronDevResourceOwner implements ResourceOwnerInterface
 {
     /**
-     * Raw response
+     * Raw response.
      *
      * @var array
      */
@@ -30,11 +30,11 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
      */
     public function getId()
     {
-        return (int)$this->response['id'] ?: null;
+        return (int) $this->response['id'] ?: null;
     }
 
     /**
-     * Return the username
+     * Return the username.
      *
      * @return string|null
      */
@@ -44,7 +44,7 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the email
+     * Return the email.
      *
      * @return string|null
      */
@@ -54,7 +54,7 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the first name
+     * Return the first name.
      *
      * @return string|null
      */
@@ -64,7 +64,7 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the surname
+     * Return the surname.
      *
      * @return string|null
      */
@@ -74,7 +74,7 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the birthday
+     * Return the birthday.
      *
      * @return \DateTime|null
      */
@@ -84,23 +84,23 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the surname
+     * Return the surname.
      *
      * @return array|null
      */
     public function getActiveAddress()
     {
-        if (is_null($this->getAddresses())) {
+        if (null === $this->getAddresses()) {
             return null;
         }
 
-        if (count($this->getAddresses()) == 1) {
+        if (1 === count($this->getAddresses())) {
             foreach ($this->getAddresses() as $address) {
                 return $address;
             }
         }
 
-        if (is_null($this->response['active_address'])) {
+        if (null === $this->response['active_address']) {
             return null;
         }
 
@@ -108,7 +108,7 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the surname
+     * Return the surname.
      *
      * @return array|null
      */
@@ -118,7 +118,7 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the subscription
+     * Return the subscription.
      *
      * @return string|null
      */
