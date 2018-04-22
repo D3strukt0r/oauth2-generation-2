@@ -4,12 +4,14 @@ namespace OrbitronDev\OAuth2\Client\Test\Provider;
 
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider;
 use PHPUnit\Framework\TestCase;
 
-class OrbitronDevTest extends TestCase
+class OrbitronDevProviderTest extends TestCase
 {
     use QueryBuilderTrait;
+    use MockeryPHPUnitIntegration;
 
     /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider */
     protected $provider;
@@ -20,7 +22,6 @@ class OrbitronDevTest extends TestCase
             'clientId' => 'mock_client_id',
             'clientSecret' => 'mock_secret',
             'redirectUri' => 'none',
-            'host' => 'https://service-account.herokuapp.com',
         ]);
     }
 
@@ -89,8 +90,10 @@ class OrbitronDevTest extends TestCase
     public function testGetAccessToken()
     {
         $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","user": {"id": "123","username": "snoopdogg","full_name": "Snoop Dogg","profile_picture": "..."}}');
+        $response->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","expires_in":3600,"token_type":"Bearer","scope":"user:id user:username user:email user:name user:surname user:birthday user:activeaddresses user:addresses user:subscription","refresh_token":"mock_refresh_token"}');
         $response->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $response->shouldReceive('getStatusCode')->andReturn(200);
+        $expires = time() + 3600;
 
         $client = Mockery::mock('GuzzleHttp\ClientInterface');
         $client->shouldReceive('send')->times(1)->andReturn($response);
@@ -99,51 +102,69 @@ class OrbitronDevTest extends TestCase
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
 
         $this->assertSame('mock_access_token', $token->getToken());
-        $this->assertNull($token->getExpires());
-        $this->assertNull($token->getRefreshToken());
-        $this->assertSame('123', $token->getResourceOwnerId());
+        $this->assertGreaterThanOrEqual($expires, $token->getExpires());
+        $this->assertSame('mock_refresh_token', $token->getRefreshToken());
+        $this->assertNull($token->getResourceOwnerId());
     }
 
     public function testUserData()
     {
-        $userId = rand(1000, 9999);
-        $name = uniqid();
-        $nickname = uniqid();
-        $picture = uniqid();
-        $description = uniqid();
+        $userData = [
+            'id' => rand(1000, 9999),
+            'username' => uniqid(),
+            'email' => uniqid(),
+            'name' => uniqid(),
+            'surname' => uniqid(),
+            'birthday' => (new \DateTime())->getTimestamp(),
+            'active_address' => '1',
+            'addresses' => [
+                '1' => [
+                    'street' => uniqid(),
+                    'house_number' => uniqid(),
+                    'zip_code' => uniqid(),
+                    'city' => uniqid(),
+                    'country' => uniqid(),
+                ]
+            ],
+            'subscription_type' => uniqid(),
+        ];
 
         $postResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $postResponse->shouldReceive('getBody')->andReturn('{"access_token": "mock_access_token","user": {"id": "1574083","username": "snoopdogg","full_name": "Snoop Dogg","profile_picture": "..."}}');
+        $postResponse->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","expires_in":3600,"token_type":"Bearer","scope":"user:id user:username user:email user:name user:surname user:birthday user:activeaddresses user:addresses user:subscription","refresh_token":"mock_refresh_token"}');
         $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $postResponse->shouldReceive('getStatusCode')->andReturn(200);
 
         $userResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $userResponse->shouldReceive('getBody')->andReturn('{"data": {"id": "'.$userId.'", "username": "'.$nickname.'", "full_name": "'.$name.'", "bio": "'.$description.'", "profile_picture": "'.$picture.'"}}');
+        $userResponse->shouldReceive('getBody')->andReturn(json_encode($userData));
         $userResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $userResponse->shouldReceive('getStatusCode')->andReturn(200);
 
         $client = Mockery::mock('GuzzleHttp\ClientInterface');
-        $client->shouldReceive('send')
-            ->times(2)
-            ->andReturn($postResponse, $userResponse);
+        $client->shouldReceive('send')->times(2)->andReturn($postResponse, $userResponse);
         $this->provider->setHttpClient($client);
 
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
         /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevResourceOwner $user */
         $user = $this->provider->getResourceOwner($token);
 
-        $this->assertSame($userId, $user->getId());
-        $this->assertSame($userId, $user->toArray()['id']);
-        $this->assertSame($name, $user->getUsername());
-        $this->assertSame($name, $user->toArray()['username']);
-        $this->assertSame($nickname, $user->getEmail());
-        $this->assertSame($nickname, $user->toArray()['email']);
-        $this->assertSame($picture, $user->getFirstName());
-        $this->assertSame($picture, $user->toArray()['name']);
-        $this->assertSame($description, $user->getSurname());
-        $this->assertSame($description, $user->toArray()['surname']);
-        $this->assertSame($description, $user->getBirthday()->getTimestamp());
-        $this->assertSame($description, $user->toArray()['birthday']);
-        $this->assertSame($description, $user->getSubscription());
-        $this->assertSame($description, $user->toArray()['subscription_type']);
+        $this->assertSame($userData['id'], $user->getId());
+        $this->assertSame($userData['id'], $user->toArray()['id']);
+        $this->assertSame($userData['username'], $user->getUsername());
+        $this->assertSame($userData['username'], $user->toArray()['username']);
+        $this->assertSame($userData['email'], $user->getEmail());
+        $this->assertSame($userData['email'], $user->toArray()['email']);
+        $this->assertSame($userData['name'], $user->getFirstName());
+        $this->assertSame($userData['name'], $user->toArray()['name']);
+        $this->assertSame($userData['surname'], $user->getSurname());
+        $this->assertSame($userData['surname'], $user->toArray()['surname']);
+        $this->assertSame($userData['birthday'], $user->getBirthday()->getTimestamp());
+        $this->assertSame($userData['birthday'], $user->toArray()['birthday']);
+        $this->assertSame($userData['addresses'][$userData['active_address']], $user->getActiveAddress());
+        $this->assertSame($userData['addresses'][$userData['active_address']], $user->toArray()['addresses'][$userData['active_address']]);
+        $this->assertSame($userData['addresses'], $user->getAddresses());
+        $this->assertSame($userData['addresses'], $user->toArray()['addresses']);
+        $this->assertSame($userData['subscription_type'], $user->getSubscription());
+        $this->assertSame($userData['subscription_type'], $user->toArray()['subscription_type']);
     }
 
     /**
@@ -154,15 +175,15 @@ class OrbitronDevTest extends TestCase
         $message = uniqid();
         $status = rand(400, 600);
         $postResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $postResponse->shouldReceive('getBody')->andReturn('{"meta": {"error_type": "OAuthException","code": '.$status.',"error_message": "'.$message.'"}}');
+        $postResponse->shouldReceive('getBody')->andReturn('{"error":"'.$status.'","error_description":"'.$message.'"}');
         $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
         $postResponse->shouldReceive('getReasonPhrase');
         $postResponse->shouldReceive('getStatusCode')->andReturn($status);
+
         $client = Mockery::mock('GuzzleHttp\ClientInterface');
-        $client->shouldReceive('send')
-            ->times(1)
-            ->andReturn($postResponse);
+        $client->shouldReceive('send')->times(1)->andReturn($postResponse);
         $this->provider->setHttpClient($client);
+
         $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
     }
 
@@ -174,15 +195,15 @@ class OrbitronDevTest extends TestCase
         $message = uniqid();
         $status = rand(400, 600);
         $postResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $postResponse->shouldReceive('getBody')->andReturn('{"error_type": "OAuthException","code": '.$status.',"error_message": "'.$message.'"}');
+        $postResponse->shouldReceive('getBody')->andReturn('{"error":"'.$status.'","error_description":"'.$message.'"}');
         $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
         $postResponse->shouldReceive('getReasonPhrase');
         $postResponse->shouldReceive('getStatusCode')->andReturn($status);
+
         $client = Mockery::mock('GuzzleHttp\ClientInterface');
-        $client->shouldReceive('send')
-            ->times(1)
-            ->andReturn($postResponse);
+        $client->shouldReceive('send')->times(1)->andReturn($postResponse);
         $this->provider->setHttpClient($client);
+
         $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
     }
 
@@ -191,13 +212,14 @@ class OrbitronDevTest extends TestCase
         $method = 'GET';
         $url = 'https://api.instagram.com/v1/users/self/feed';
         $accessTokenResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $accessTokenResponse->shouldReceive('getBody')->andReturn('{"access_token": "mock_access_token","user": {"id": "1574083","username": "snoopdogg","full_name": "Snoop Dogg","profile_picture": "..."}}');
+        $accessTokenResponse->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","expires_in":3600,"token_type":"Bearer","scope":"user:id user:username user:email user:name user:surname user:birthday user:activeaddresses user:addresses user:subscription","refresh_token":"mock_refresh_token"}');
         $accessTokenResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $accessTokenResponse->shouldReceive('getStatusCode')->andReturn(200);
+
         $client = Mockery::mock('GuzzleHttp\ClientInterface');
-        $client->shouldReceive('send')
-            ->times(1)
-            ->andReturn($accessTokenResponse);
+        $client->shouldReceive('send')->times(1)->andReturn($accessTokenResponse);
         $this->provider->setHttpClient($client);
+
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
         $authenticatedRequest = $this->provider->getAuthenticatedRequest($method, $url, $token);
         $this->assertInstanceOf('Psr\Http\Message\RequestInterface', $authenticatedRequest);

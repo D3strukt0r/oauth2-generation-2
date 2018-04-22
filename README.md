@@ -22,6 +22,7 @@ The following versions of PHP are supported.
 * PHP 5.6
 * PHP 7.0
 * PHP 7.1
+* PHP 7.2
 * HHVM
 
 [OrbitronDev App](https://account.orbitrondev.org/p/developer-create-application) will also need to be set up, which will provide you with the `{app-id}` and `{app-secret}` required (see [Usage](#usage) below).
