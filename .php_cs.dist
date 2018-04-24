@@ -1,5 +1,16 @@
 <?php
 
+$year = \date('Y');
+$header = <<<EOF
+Votifier PHP Client
+
+@package   OAuth2-OrbitronDev
+@author    Manuele Vaccari <manuele.vaccari@gmail.com>
+@copyright Copyright (c) 2017-$year Manuele Vaccari <manuele.vaccari@gmail.com>
+@license   https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/LICENSE.md MIT License
+@link      https://github.com/D3strukt0r/oauth2-orbitrondev
+EOF;
+
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
 ;
@@ -23,6 +34,10 @@ return PhpCsFixer\Config::create()
         'semicolon_after_instruction' => true,
         'strict_comparison' => true,
         'strict_param' => true,
+        'header_comment' => [
+            'commentType' => 'PHPDoc',
+            'header' => $header,
+        ],
     ])
     ->setFinder($finder)
     ->setCacheFile(__DIR__.'/.php_cs.cache')

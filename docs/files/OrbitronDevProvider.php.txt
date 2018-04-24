@@ -160,3 +160,4 @@ class OrbitronDevProvider extends AbstractProvider
         return new OrbitronDevResourceOwner($response);
     }
 }
+

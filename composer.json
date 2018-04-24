@@ -1,5 +1,5 @@
 {
-    "name": "orbitrondev/oauth2-orbitrondev",
+    "name": "d3strukt0r/oauth2-orbitrondev",
     "description": "OrbitronDev OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
     "type": "library",
     "keywords": [
@@ -10,6 +10,34 @@
         "authorisation",
         "orbitrondev"
     ],
+    "homepage": "https://github.com/D3strukt0r/oauth2-orbitrondev",
+    "time": "2018-02-16 21:52:00",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Manuele Vaccari",
+            "email": "manuele.vaccari@gmail.com",
+            "homepage": "https://github.com/D3strukt0r",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "manuele.vaccari@gmail.com",
+        "issues": "https://github.com/D3strukt0r/oauth2-orbitrondev/issues",
+        "wiki": "https://github.com/D3strukt0r/oauth2-orbitrondev/wiki",
+        "source": "https://github.com/D3strukt0r/oauth2-orbitrondev",
+        "docs": "https://github.com/D3strukt0r/oauth2-orbitrondev/wiki"
+    },
+    "require": {
+        "league/oauth2-client": "^2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7 || ^6 || ^5",
+        "squizlabs/php_codesniffer": "^3.2",
+        "mockery/mockery": "^1.0",
+        "php-coveralls/php-coveralls": "^2.0",
+        "scrutinizer/ocular": "^1"
+    },
     "autoload": {
         "psr-4": {
             "OrbitronDev\\OAuth2\\Client\\": "src/"
@@ -17,34 +45,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "OrbitronDev\\OAuth2\\Client\\Test\\": "test/src/"
+            "OrbitronDev\\OAuth2\\Client\\": "tests/"
         }
-    },
-    "require": {
-        "league/oauth2-client": "^2.3"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^7",
-        "squizlabs/php_codesniffer": "^3.2",
-        "mockery/mockery": "^1.0",
-        "php-coveralls/php-coveralls": "^2.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Manuele Vaccari",
-            "email": "manuele.vaccari@gmail.com",
-            "homepage": "https://github.com/D3strukt0r"
-        }
-    ],
-    "minimum-stability": "stable",
-    "scripts": {
-        "check": "phpcs --standard=psr2 -sp src/",
-        "test": "phpunit",
-        "upload-coveralls": "php-coveralls -v",
-        "upload-scrutinizer": [
-            "wget https://scrutinizer-ci.com/ocular.phar",
-            "php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml"
-        ]
     }
 }

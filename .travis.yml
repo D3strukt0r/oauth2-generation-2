@@ -3,6 +3,9 @@ language: php
 sudo: false
 dist: trusty
 
+notifications:
+  email: false
+
 cache:
   directories:
     - $HOME/.composer/cache/files
@@ -20,21 +23,28 @@ matrix:
     - php: nightly
 
 install:
-  - if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then composer require --dev "phpunit/phpunit:^5"; fi
-  - if [[ $TRAVIS_PHP_VERSION == 7.0 ]]; then composer require --dev "phpunit/phpunit:^6"; fi
-  - if [[ $TRAVIS_PHP_VERSION == 5.6 ]]; then composer require --dev "phpunit/phpunit:^5"; fi
   - composer install
+  - |
+     if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+      curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
+     fi
 
 script:
-  - composer run check
-  - composer run test
+  - ./vendor/bin/phpcs --standard=psr2 -sp src/
+  - |
+    if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+      ~/.phpenv/versions/hhvm/bin/phpunit
+    else
+      ./vendor/bin/phpunit
+    fi
 
 after_script:
   - |
     if [ -f "build/logs/clover.xml" ]; then
-      composer run upload-coveralls
-      composer run upload-scrutinizer
+      if [ -f "vendor/bin/coveralls" ]; then
+        ./vendor/bin/coveralls -v
+      else
+        ./vendor/bin/php-coveralls -v
+      fi
+      ./vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
     fi
-
-notifications:
-  email: false

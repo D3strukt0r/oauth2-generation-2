@@ -1,10 +1,13 @@
 # OrbitronDev Provider for OAuth 2.0 Client
 
-[![Build Status](https://img.shields.io/travis/D3strukt0r/oauth2-orbitrondev.svg)](https://travis-ci.org/OrbitronDev/oauth2-orbitrondev)
-[![Code Coverage](https://img.shields.io/coveralls/D3strukt0r/oauth2-orbitrondev.svg)](https://coveralls.io/r/OrbitronDev/oauth2-orbitrondev)
-[![Code Quality](https://img.shields.io/scrutinizer/g/d3strukt0r/oauth2-orbitrondev.svg)](https://scrutinizer-ci.com/g/orbitrondev/oauth2-orbitrondev/)
-[![License](https://img.shields.io/packagist/l/orbitrondev/oauth2-orbitrondev.svg)](https://github.com/orbitrondev/oauth2-orbitrondev/blob/master/LICENSE.md)
-[![Latest Stable Version](https://img.shields.io/packagist/v/orbitrondev/oauth2-orbitrondev.svg)](https://packagist.org/packages/orbitrondev/oauth2-orbitrondev)
+[![Packagist](https://img.shields.io/packagist/v/d3strukt0r/oauth2-orbitrondev.svg)](https://packagist.org/packages/d3strukt0r/oauth2-orbitrondev)
+[![Packagist Pre Release](https://img.shields.io/packagist/vpre/d3strukt0r/oauth2-orbitrondev.svg)](https://packagist.org/packages/d3strukt0r/oauth2-orbitrondev)
+[![Packagist](https://img.shields.io/packagist/dt/d3strukt0r/oauth2-orbitrondev.svg)](https://packagist.org/packages/d3strukt0r/oauth2-orbitrondev)
+[![Packagist](https://img.shields.io/packagist/l/d3strukt0r/oauth2-orbitrondev.svg)](https://github.com/d3strukt0r/oauth2-orbitrondev/blob/master/LICENSE)
+
+[![Travis](https://img.shields.io/travis/D3strukt0r/oauth2-orbitrondev.svg)](https://travis-ci.org/D3strukt0r/oauth2-orbitrondev)
+[![Coveralls](https://img.shields.io/coveralls/D3strukt0r/oauth2-orbitrondev.svg)](https://coveralls.io/github/D3strukt0r/oauth2-orbitrondev)
+[![Code Quality](https://img.shields.io/scrutinizer/g/d3strukt0r/oauth2-orbitrondev.svg)](https://scrutinizer-ci.com/g/d3strukt0r/oauth2-orbitrondev/)
 
 This package provides OrbitronDev OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
 
