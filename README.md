@@ -35,7 +35,7 @@ The following versions of PHP are supported.
 To install, use composer:
 
 ```bash
-composer require orbitrondev/oauth2-orbitrondev
+composer require d3strukt0r/oauth2-orbitrondev
 ```
 
 ## Usage
@@ -177,15 +177,15 @@ $ ./vendor/bin/phpunit
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/OrbitronDev/oauth2-orbitrondev/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/CONTRIBUTING.md) for details.
 
 
 ## Credits
 
 - [Manuele Vaccari](https://github.com/D3strukt0r)
-- [All Contributors](https://github.com/OrbitronDev/oauth2-orbitrondev/contributors)
+- [All Contributors](https://github.com/D3strukt0r/oauth2-orbitrondev/contributors)
 
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/OrbitronDev/oauth2-orbitrondev/blob/master/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/LICENSE.md) for more information.
