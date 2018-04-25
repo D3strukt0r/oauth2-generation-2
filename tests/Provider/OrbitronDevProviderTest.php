@@ -159,24 +159,168 @@ class OrbitronDevProviderTest extends TestCase
         /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevResourceOwner $user */
         $user = $this->provider->getResourceOwner($token);
 
+        // Test user id
         $this->assertSame($userData['id'], $user->getId());
         $this->assertSame($userData['id'], $user->toArray()['id']);
+
+        // Test username
         $this->assertSame($userData['username'], $user->getUsername());
         $this->assertSame($userData['username'], $user->toArray()['username']);
+
+        // Test email
         $this->assertSame($userData['email'], $user->getEmail());
         $this->assertSame($userData['email'], $user->toArray()['email']);
+
+        // Test name
         $this->assertSame($userData['name'], $user->getFirstName());
         $this->assertSame($userData['name'], $user->toArray()['name']);
+
+        // Test surname
         $this->assertSame($userData['surname'], $user->getSurname());
         $this->assertSame($userData['surname'], $user->toArray()['surname']);
+
+        // Test birthday
         $this->assertSame($userData['birthday'], $user->getBirthday()->getTimestamp());
         $this->assertSame($userData['birthday'], $user->toArray()['birthday']);
+
+        // Test default address (with 1 address)
         $this->assertSame($userData['addresses'][$userData['active_address']], $user->getActiveAddress());
         $this->assertSame($userData['addresses'][$userData['active_address']], $user->toArray()['addresses'][$userData['active_address']]);
+
+        // Test address list
         $this->assertSame($userData['addresses'], $user->getAddresses());
         $this->assertSame($userData['addresses'], $user->toArray()['addresses']);
+
+        // Test subscription type
         $this->assertSame($userData['subscription_type'], $user->getSubscription());
         $this->assertSame($userData['subscription_type'], $user->toArray()['subscription_type']);
+    }
+
+    public function testNoActiveAddress()
+    {
+        $userData = [
+            'id' => rand(1000, 9999),
+            'active_address' => null,
+            'addresses' => [
+                '1' => [
+                    'street' => uniqid(),
+                    'house_number' => uniqid(),
+                    'zip_code' => uniqid(),
+                    'city' => uniqid(),
+                    'country' => uniqid(),
+                ],
+                '2' => [
+                    'street' => uniqid(),
+                    'house_number' => uniqid(),
+                    'zip_code' => uniqid(),
+                    'city' => uniqid(),
+                    'country' => uniqid(),
+                ],
+            ],
+        ];
+
+        $postResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $postResponse->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","expires_in":3600,"token_type":"Bearer","scope":"user:id user:activeaddresses user:addresses","refresh_token":"mock_refresh_token"}');
+        $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $postResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+        $userResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $userResponse->shouldReceive('getBody')->andReturn(json_encode($userData));
+        $userResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $userResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+        $client = Mockery::mock('GuzzleHttp\ClientInterface');
+        $client->shouldReceive('send')->times(2)->andReturn($postResponse, $userResponse);
+        $this->provider->setHttpClient($client);
+
+        $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
+        /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevResourceOwner $user */
+        $user = $this->provider->getResourceOwner($token);
+
+        // Check with default
+        $this->assertNull($user->getActiveAddress());
+        $this->assertNull($user->toArray()['active_address']);
+    }
+
+    public function testAddressOn0Addresses()
+    {
+        $userData = [
+            'id' => rand(1000, 9999),
+            'active_address' => null,
+            'addresses' => null,
+        ];
+
+        $postResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $postResponse->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","expires_in":3600,"token_type":"Bearer","scope":"user:id user:activeaddresses user:addresses","refresh_token":"mock_refresh_token"}');
+        $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $postResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+        $userResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $userResponse->shouldReceive('getBody')->andReturn(json_encode($userData));
+        $userResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $userResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+        $client = Mockery::mock('GuzzleHttp\ClientInterface');
+        $client->shouldReceive('send')->times(2)->andReturn($postResponse, $userResponse);
+        $this->provider->setHttpClient($client);
+
+        $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
+        /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevResourceOwner $user */
+        $user = $this->provider->getResourceOwner($token);
+
+        // Test addresses directly
+        $this->assertNull($user->getAddresses());
+        $this->assertNull($user->toArray()['addresses']);
+
+        // Check with default
+        $this->assertNull($user->getActiveAddress());
+        $this->assertNull($user->toArray()['active_address']);
+    }
+
+    public function testAddressOnMultiple()
+    {
+        $userData = [
+            'id' => rand(1000, 9999),
+            'active_address' => '2',
+            'addresses' => [
+                '1' => [
+                    'street' => uniqid(),
+                    'house_number' => uniqid(),
+                    'zip_code' => uniqid(),
+                    'city' => uniqid(),
+                    'country' => uniqid(),
+                ],
+                '2' => [
+                    'street' => uniqid(),
+                    'house_number' => uniqid(),
+                    'zip_code' => uniqid(),
+                    'city' => uniqid(),
+                    'country' => uniqid(),
+                ],
+            ],
+        ];
+
+        $postResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $postResponse->shouldReceive('getBody')->andReturn('{"access_token":"mock_access_token","expires_in":3600,"token_type":"Bearer","scope":"user:id user:activeaddresses user:addresses","refresh_token":"mock_refresh_token"}');
+        $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $postResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+        $userResponse = Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $userResponse->shouldReceive('getBody')->andReturn(json_encode($userData));
+        $userResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $userResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+        $client = Mockery::mock('GuzzleHttp\ClientInterface');
+        $client->shouldReceive('send')->times(2)->andReturn($postResponse, $userResponse);
+        $this->provider->setHttpClient($client);
+
+        $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
+        /** @var \OrbitronDev\OAuth2\Client\Provider\OrbitronDevResourceOwner $user */
+        $user = $this->provider->getResourceOwner($token);
+
+        // Test default address on multiple
+        $this->assertSame($userData['addresses']['2'], $user->getActiveAddress());
+        $this->assertSame($userData['addresses']['2'], $user->toArray()['addresses'][$user->toArray()['active_address']]);
     }
 
     /*public function testExceptionThrownWhenErrorObjectReceived()
