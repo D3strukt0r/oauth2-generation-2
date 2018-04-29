@@ -36,7 +36,8 @@
         "squizlabs/php_codesniffer": "^3.2",
         "mockery/mockery": "^1.0",
         "php-coveralls/php-coveralls": "^2.0",
-        "scrutinizer/ocular": "^1"
+        "scrutinizer/ocular": "^1",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

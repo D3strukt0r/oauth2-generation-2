@@ -14,7 +14,7 @@
 
 namespace OrbitronDev\OAuth2\Client\Provider;
 
-use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+//use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
