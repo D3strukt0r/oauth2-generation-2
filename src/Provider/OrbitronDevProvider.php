@@ -51,7 +51,7 @@ class OrbitronDevProvider extends AbstractProvider
      *
      * @param string $host The domain for accessing the user data
      *
-     * @return string
+     * @return $this
      */
     public function setHost($host)
     {
