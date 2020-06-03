@@ -1,25 +1,24 @@
 <?php
 
 /**
- * Votifier PHP Client
+ * Generation 2 OAuth2 client
  *
- * @package   OAuth2-OrbitronDev
- *
+ * @package   OAuth2-Generation2
  * @author    Manuele Vaccari <manuele.vaccari@gmail.com>
- * @copyright Copyright (c) 2017-2018 Manuele Vaccari <manuele.vaccari@gmail.com>
- * @license   https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/LICENSE.md MIT License
- *
- * @link      https://github.com/D3strukt0r/oauth2-orbitrondev
+ * @copyright Copyright (c) 2017-2020 Manuele Vaccari <manuele.vaccari@gmail.com>
+ * @license   https://github.com/D3strukt0r/oauth2-generation-2/blob/master/LICENSE.txt GNU General Public License v3.0
+ * @link      https://github.com/D3strukt0r/oauth2-generation-2
  */
 
-namespace OrbitronDev\OAuth2\Client\Provider;
+namespace Generation2\OAuth2\Client\Provider;
 
+use DateTime;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 /**
  * The Class which can be used with league/oauth2-client.
  */
-class OrbitronDevResourceOwner implements ResourceOwnerInterface
+class Generation2ResourceOwner implements ResourceOwnerInterface
 {
     /**
      * Raw response.
@@ -91,11 +90,11 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
     /**
      * Return the birthday.
      *
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getBirthday()
     {
-        return $this->response['birthday'] ? (new \DateTime())->setTimestamp($this->response['birthday']) : null;
+        return $this->response['birthday'] ? (new DateTime())->setTimestamp($this->response['birthday']) : null;
     }
 
     /**
@@ -152,4 +151,3 @@ class OrbitronDevResourceOwner implements ResourceOwnerInterface
         return $this->response;
     }
 }
-

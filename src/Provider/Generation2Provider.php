@@ -1,21 +1,20 @@
 <?php
 
 /**
- * Votifier PHP Client
+ * Generation 2 OAuth2 client
  *
- * @package   OAuth2-OrbitronDev
- *
+ * @package   OAuth2-Generation2
  * @author    Manuele Vaccari <manuele.vaccari@gmail.com>
- * @copyright Copyright (c) 2017-2018 Manuele Vaccari <manuele.vaccari@gmail.com>
- * @license   https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/LICENSE.md MIT License
- *
- * @link      https://github.com/D3strukt0r/oauth2-orbitrondev
+ * @copyright Copyright (c) 2017-2020 Manuele Vaccari <manuele.vaccari@gmail.com>
+ * @license   https://github.com/D3strukt0r/oauth2-generation-2/blob/master/LICENSE.txt GNU General Public License v3.0
+ * @link      https://github.com/D3strukt0r/oauth2-generation-2
  */
 
-namespace OrbitronDev\OAuth2\Client\Provider;
+namespace Generation2\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
@@ -23,18 +22,18 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * The Class in which all user information will be stored.
  */
-class OrbitronDevProvider extends AbstractProvider
+class Generation2Provider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
      * Default host.
      *
      * @var string
      */
-    protected $host = 'https://account.orbitrondev.org';
+    protected $host = 'https://account.generation-2.org';
 
     /**
      * Gets host.
@@ -138,11 +137,7 @@ class OrbitronDevProvider extends AbstractProvider
         }
 
         if (isset($errorMessage)) {
-            throw new IdentityProviderException(
-                $errorMessage,
-                $response->getStatusCode(),
-                $response->getBody()
-            );
+            throw new IdentityProviderException($errorMessage, $response->getStatusCode(), $response->getBody());
         }
     }
 
@@ -153,11 +148,10 @@ class OrbitronDevProvider extends AbstractProvider
      * @param array       $response Response data from server
      * @param AccessToken $token    The used access token
      *
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return ResourceOwnerInterface
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new OrbitronDevResourceOwner($response);
+        return new Generation2ResourceOwner($response);
     }
 }
-

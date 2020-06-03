@@ -1,15 +1,48 @@
-# OrbitronDev Provider for OAuth 2.0 Client
+# Generation 2 provider for OAuth 2.0 Client
 
-[![Packagist](https://img.shields.io/packagist/v/d3strukt0r/oauth2-orbitrondev.svg)](https://packagist.org/packages/d3strukt0r/oauth2-orbitrondev)
-[![Packagist Pre Release](https://img.shields.io/packagist/vpre/d3strukt0r/oauth2-orbitrondev.svg)](https://packagist.org/packages/d3strukt0r/oauth2-orbitrondev)
-[![Packagist](https://img.shields.io/packagist/dt/d3strukt0r/oauth2-orbitrondev.svg)](https://packagist.org/packages/d3strukt0r/oauth2-orbitrondev)
-[![Packagist](https://img.shields.io/packagist/l/d3strukt0r/oauth2-orbitrondev.svg)](https://github.com/d3strukt0r/oauth2-orbitrondev/blob/master/LICENSE)
+This package provides Generation 2 OAuth 2.0 support for the PHP League's 
+[OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
 
-[![Travis](https://img.shields.io/travis/D3strukt0r/oauth2-orbitrondev.svg)](https://travis-ci.org/D3strukt0r/oauth2-orbitrondev)
-[![Coveralls](https://img.shields.io/coveralls/D3strukt0r/oauth2-orbitrondev.svg)](https://coveralls.io/github/D3strukt0r/oauth2-orbitrondev)
-[![Code Quality](https://img.shields.io/scrutinizer/g/d3strukt0r/oauth2-orbitrondev.svg)](https://scrutinizer-ci.com/g/d3strukt0r/oauth2-orbitrondev/)
+**Project**
 
-This package provides OrbitronDev OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
+| [License][license]       | Versions ([Packagist][packagist])                                                                       | Downloads ([Packagist][packagist])        | Required PHP Version              |
+|--------------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------|-----------------------------------|
+| ![License][license-icon] | Release: ![Version][release-icon]<br>Pre-Release: ![Version (including pre-releases)][pre-release-icon] | ![Downloads on Packagist][downloads-icon] | ![Required PHP version][php-icon] |
+
+**master**-branch (alias stable, latest)
+
+| [Travis CI][travis]                        | [Coveralls][coveralls]              | [Scrutinizer CI][scrutinizer]                                                                                   | [Read the Docs][rtfd]                  |
+|--------------------------------------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------|
+| ![Travis build status][travis-master-icon] | ![Coveralls][coveralls-master-icon] | ![Scrutinizer build status][scrutinizer-master-icon]<br>![Scrutinizer code quality][scrutinizer-cc-master-icon] | ![Docs build status][rtfd-master-icon] |
+
+**develop**-branch (alias nightly)
+
+| [Travis CI][travis]                         | [Coveralls][coveralls]               | [Scrutinizer CI][scrutinizer]                                                                                     | [Read the Docs][rtfd]                   |
+|---------------------------------------------|--------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| ![Travis build status][travis-develop-icon] | ![Coveralls][coveralls-develop-icon] | ![Scrutinizer build status][scrutinizer-develop-icon]<br>![Scrutinizer code quality][scrutinizer-cc-develop-icon] | ![Docs build status][rtfd-develop-icon] |
+
+[license]: https://github.com/D3strukt0r/oauth2-generation-2/blob/master/LICENSE.txt
+[packagist]: https://packagist.org/packages/d3strukt0r/oauth2-generation-2
+[travis]: https://travis-ci.com/D3strukt0r/oauth2-generation-2
+[coveralls]: https://coveralls.io/github/D3strukt0r/oauth2-generation-2
+[scrutinizer]: https://scrutinizer-ci.com/g/D3strukt0r/oauth2-generation-2/
+[rtfd]: https://readthedocs.org/projects/oauth2-generation-2/
+
+[license-icon]: https://img.shields.io/packagist/l/d3strukt0r/oauth2-generation-2
+[release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2
+[pre-release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2?include_prereleases
+[downloads-icon]: https://img.shields.io/packagist/dt/d3strukt0r/oauth2-generation-2
+[php-icon]: https://img.shields.io/packagist/php-v/d3strukt0r/oauth2-generation-2
+[travis-master-icon]: https://img.shields.io/travis/com/D3strukt0r/oauth2-generation-2/master
+[travis-develop-icon]: https://img.shields.io/travis/com/D3strukt0r/oauth2-generation-2/develop
+[coveralls-master-icon]: https://img.shields.io/coveralls/github/D3strukt0r/oauth2-generation-2/master
+[coveralls-develop-icon]: https://img.shields.io/coveralls/github/D3strukt0r/oauth2-generation-2/develop
+[scrutinizer-master-icon]: https://img.shields.io/scrutinizer/build/g/D3strukt0r/oauth2-generation-2/master
+[scrutinizer-develop-icon]: https://img.shields.io/scrutinizer/build/g/D3strukt0r/oauth2-generation-2/develop
+[scrutinizer-cc-master-icon]: https://img.shields.io/scrutinizer/quality/g/D3strukt0r/oauth2-generation-2/master
+[scrutinizer-cc-develop-icon]: https://img.shields.io/scrutinizer/quality/g/D3strukt0r/oauth2-generation-2/develop
+[rtfd-master-icon]: https://img.shields.io/readthedocs/oauth2-generation-2/stable
+[rtfd-develop-icon]: https://img.shields.io/readthedocs/oauth2-generation-2/latest
 
 This package is compliant with [PSR-1][], [PSR-2][] and [PSR-4][]. If you notice compliance oversights, please send
 a patch via pull request.
@@ -18,32 +51,35 @@ a patch via pull request.
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 
-## Requirements
+## Getting Started
+
+### Prerequisites
 
 The following versions of PHP are supported.
 
-* PHP 5.6
-* PHP 7.0
 * PHP 7.1
 * PHP 7.2
+* PHP 7.3
+* PHP 7.4
 * HHVM
 
-[OrbitronDev App](https://account.orbitrondev.org/p/developer-create-application) will also need to be set up, which will provide you with the `{app-id}` and `{app-secret}` required (see [Usage](#usage) below).
+[Generation 2 App](https://account.generation-2.org/p/developer-create-application) will also need to be set up, which
+will provide you with the `{app-id}` and `{app-secret}` required (see [Usage](#usage) below).
 
-## Installation
+### Installing
 
 To install, use composer:
 
 ```bash
-composer require d3strukt0r/oauth2-orbitrondev
+composer require generation-2/oauth2-generation-2
 ```
 
-## Usage
+### Usage
 
-### Authorization Code Flow
+#### Authorization Code Flow
 
 ```php
-$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider([
+$provider = new Generation2\OAuth2\Client\Provider\Generation2Provider([
     'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
     'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
@@ -112,19 +148,21 @@ if (!empty($_GET['error'])) {
 }
 ```
 
-### Refreshing a Token
+#### Refreshing a Token
 
-Refresh tokens are only provided to applications which request offline access. You can specify offline access by setting the `accessType` option in your provider:
+Refresh tokens are only provided to applications which request offline access. You can specify offline access by setting
+the `accessType` option in your provider:
 
 ```php
-$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider([
+$provider = new Generation2\OAuth2\Client\Provider\Generation2Provider([
     'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
     'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
 ]);
 ```
 
-It is important to note that the refresh token is only returned on the first request after this it will be `null`. You should securely store the refresh token when it is returned:
+It is important to note that the refresh token is only returned on the first request after this it will be `null`. You
+should securely store the refresh token when it is returned:
 
 ```php
 $accessToken = $provider->getAccessToken('authorization_code', [
@@ -144,7 +182,7 @@ $authorizationUrl = $provider->getAuthorizationUrl(['approval_prompt' => 'force'
 Now you have everything you need to refresh an access token using a refresh token:
 
 ```php
-$provider = new OrbitronDev\OAuth2\Client\Provider\OrbitronDevProvider([
+$provider = new Generation2\OAuth2\Client\Provider\Generation2Provider([
     'clientId'     => '{app-id}',     // The client ID assigned to you by the provider
     'clientSecret' => '{app-secret}', // The client password assigned to you by the provider
     'redirectUri'  => 'https://example.com/callback-url',
@@ -155,7 +193,7 @@ $newAccessToken = $provider->getAccessToken('refresh_token', [
 ]);
 ```
 
-## Scopes
+### Scopes
 
 If needed, you can include an array of scopes when getting the authorization url. Example:
 
@@ -169,23 +207,42 @@ header('Location: '.$authorizationUrl);
 exit;
 ```
 
-## Testing
+## Running the tests
 
 ```bash
 $ ./vendor/bin/phpunit
 ```
 
+## Built With
+
+* [PHP](https://www.php.net/) - Programming Language
+* [Composer](https://getcomposer.org/) - Dependency Management
+* [PHPUnit](https://phpunit.de/) - Testing the code
+* [Travis CI](https://travis-ci.com/) - Automatic CI (Testing)
+
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/CONTRIBUTING.md) for details.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull
+requests to us.
 
+## Versioning
 
-## Credits
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the
+[tags on this repository](https://github.com/D3strukt0r/oauth2-generation-2/tags). 
 
-- [Manuele Vaccari](https://github.com/D3strukt0r)
-- [All Contributors](https://github.com/D3strukt0r/oauth2-orbitrondev/contributors)
+## Authors
 
+* **Manuele Vaccari** - [D3strukt0r](https://github.com/D3strukt0r) - *Initial work*
+
+See also the list of [contributors](https://github.com/D3strukt0r/oauth2-generation-2/contributors) who participated in
+this project.
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/LICENSE.md) for more information.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.txt](LICENSE.txt) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc

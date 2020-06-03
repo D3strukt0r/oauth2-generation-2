@@ -1,7 +1,20 @@
+os: linux
+dist: bionic
 language: php
 
-sudo: false
-dist: trusty
+jobs:
+  fast_finish: true
+  include:
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+    - php: 7.4
+    - php: nightly
+    - dist: trusty
+      php: hhvm
+  allow_failures:
+    - php: nightly
+    - php: hhvm
 
 notifications:
   email: false
@@ -10,41 +23,31 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-matrix:
-  fast_finish: true
-  include:
-    - php: 5.6
-    - php: 7.0
-    - php: 7.1
-    - php: 7.2
-    - php: nightly
-    - php: hhvm
-  allow_failures:
-    - php: nightly
-
 install:
-  - composer install
+  # https://github.com/php-coveralls/php-coveralls
+  - wget https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
+  # https://scrutinizer-ci.com/docs/tools/external-code-coverage/
+  - wget https://scrutinizer-ci.com/ocular.phar
   - |
-     if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+    if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
       curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
-     fi
+    fi
+  - composer install
 
 script:
-  - ./vendor/bin/phpcs --standard=psr2 -sp src/
   - |
     if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
       ~/.phpenv/versions/hhvm/bin/phpunit
     else
       ./vendor/bin/phpunit
     fi
+  - ./vendor/bin/phpcs
+  # this checks that the source code follows the Symfony Code Syntax rules
+  - ./vendor/bin/php-cs-fixer fix --diff --dry-run -v
 
 after_script:
   - |
-    if [ -f "build/logs/clover.xml" ]; then
-      if [ -f "vendor/bin/coveralls" ]; then
-        ./vendor/bin/coveralls -v
-      else
-        ./vendor/bin/php-coveralls -v
-      fi
-      ./vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
+    if [[ "$TRAVIS_PHP_VERSION" == "7.4" && -f "build/logs/clover.xml" ]]; then
+      php php-coveralls.phar -v
+      php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
     fi

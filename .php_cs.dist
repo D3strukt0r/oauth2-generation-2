@@ -2,13 +2,13 @@
 
 $year = \date('Y');
 $header = <<<EOF
-Votifier PHP Client
+Generation 2 OAuth2 client
 
-@package   OAuth2-OrbitronDev
+@package   OAuth2-Generation2
 @author    Manuele Vaccari <manuele.vaccari@gmail.com>
 @copyright Copyright (c) 2017-$year Manuele Vaccari <manuele.vaccari@gmail.com>
-@license   https://github.com/D3strukt0r/oauth2-orbitrondev/blob/master/LICENSE.md MIT License
-@link      https://github.com/D3strukt0r/oauth2-orbitrondev
+@license   https://github.com/D3strukt0r/oauth2-generation-2/blob/master/LICENSE.txt GNU General Public License v3.0
+@link      https://github.com/D3strukt0r/oauth2-generation-2
 EOF;
 
 $finder = PhpCsFixer\Finder::create()
@@ -17,28 +17,25 @@ $finder = PhpCsFixer\Finder::create()
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
-    ->setRules([
-        '@Symfony' => true,
-        '@Symfony:risky' => true,
-        '@DoctrineAnnotation' => true,
-        'array_syntax' => ['syntax' => 'short'],
-        'linebreak_after_opening_tag' => true,
-        'mb_str_functions' => true,
-        'no_php4_constructor' => true,
-        'no_unreachable_default_argument_value' => true,
-        'no_useless_else' => true,
-        'no_useless_return' => true,
-        'ordered_imports' => true,
-        'php_unit_strict' => true,
-        'phpdoc_order' => true,
-        'semicolon_after_instruction' => true,
-        'strict_comparison' => true,
-        'strict_param' => true,
-        'header_comment' => [
-            'commentType' => 'PHPDoc',
-            'header' => $header,
-        ],
-    ])
+    ->setRules(
+        [
+            '@PSR1' => true,
+            '@PSR2' => true,
+            '@PhpCsFixer' => true,
+            '@PhpCsFixer:risky' => true,
+            '@Symfony' => true,
+            '@Symfony:risky' => true,
+            'header_comment' => [
+                'comment_type' => 'PHPDoc',
+                'header' => $header,
+            ],
+            'linebreak_after_opening_tag' => true,
+            'mb_str_functions' => true,
+            'no_php4_constructor' => true,
+            'native_function_invocation' => false,
+            'no_superfluous_elseif' => false,
+        ]
+    )
     ->setFinder($finder)
-    ->setCacheFile(__DIR__.'/.php_cs.cache')
-;
+    ->setCacheFile(__DIR__.'/.php_coding_standard_cache.json')
+    ;
