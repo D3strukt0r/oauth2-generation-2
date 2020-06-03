@@ -1,20 +1,11 @@
 os: linux
 dist: bionic
 language: php
-
-jobs:
-  fast_finish: true
-  include:
-    - php: 7.1
-    - php: 7.2
-    - php: 7.3
-    - php: 7.4
-    - php: nightly
-    - dist: trusty
-      php: hhvm
-  allow_failures:
-    - php: nightly
-    - php: hhvm
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
 
 notifications:
   email: false
@@ -28,19 +19,10 @@ install:
   - wget https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
   # https://scrutinizer-ci.com/docs/tools/external-code-coverage/
   - wget https://scrutinizer-ci.com/ocular.phar
-  - |
-    if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
-      curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
-    fi
   - composer install
 
 script:
-  - |
-    if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
-      ~/.phpenv/versions/hhvm/bin/phpunit
-    else
-      ./vendor/bin/phpunit
-    fi
+  - ./vendor/bin/phpunit
   - ./vendor/bin/phpcs
   # this checks that the source code follows the Symfony Code Syntax rules
   - ./vendor/bin/php-cs-fixer fix --diff --dry-run -v
