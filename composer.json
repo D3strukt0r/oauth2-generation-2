@@ -24,7 +24,7 @@
         "issues": "https://github.com/D3strukt0r/oauth2-generation-2/issues",
         "wiki": "https://github.com/D3strukt0r/oauth2-generation-2/wiki",
         "source": "https://github.com/D3strukt0r/oauth2-generation-2",
-        "docs": "https://oauth2-generation-2.readthedocs.io/en/latest/"
+        "docs": "https://oauth2-generation-2-docs.manuele-vaccari.ch/en/stable/"
     },
     "require": {
         "php": ">=7.1",
