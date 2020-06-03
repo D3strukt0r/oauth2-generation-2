@@ -28,11 +28,11 @@ This package provides Generation 2 OAuth 2.0 support for the PHP League's
 [scrutinizer]: https://scrutinizer-ci.com/g/D3strukt0r/oauth2-generation-2/
 [rtfd]: https://readthedocs.org/projects/oauth2-generation-2/
 
-[license-icon]: https://img.shields.io/packagist/l/generation-2/oauth2-generation-2
-[release-icon]: https://img.shields.io/packagist/v/generation-2/oauth2-generation-2
-[pre-release-icon]: https://img.shields.io/packagist/v/generation-2/oauth2-generation-2?include_prereleases
-[downloads-icon]: https://img.shields.io/packagist/dt/generation-2/oauth2-generation-2
-[php-icon]: https://img.shields.io/packagist/php-v/generation-2/oauth2-generation-2
+[license-icon]: https://img.shields.io/packagist/l/d3strukt0r/oauth2-generation-2
+[release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2
+[pre-release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2?include_prereleases
+[downloads-icon]: https://img.shields.io/packagist/dt/d3strukt0r/oauth2-generation-2
+[php-icon]: https://img.shields.io/packagist/php-v/d3strukt0r/oauth2-generation-2
 [travis-master-icon]: https://img.shields.io/travis/com/D3strukt0r/oauth2-generation-2/master
 [travis-develop-icon]: https://img.shields.io/travis/com/D3strukt0r/oauth2-generation-2/develop
 [coveralls-master-icon]: https://img.shields.io/coveralls/github/D3strukt0r/oauth2-generation-2/master
@@ -71,7 +71,7 @@ will provide you with the `{app-id}` and `{app-secret}` required (see [Usage](#u
 To install, use composer:
 
 ```bash
-composer require generation-2/oauth2-generation-2
+composer require d3strukt0r/oauth2-generation-2
 ```
 
 ### Usage

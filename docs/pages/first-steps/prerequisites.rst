@@ -20,7 +20,7 @@ And then run
 
 .. code-block:: bash
 
-    composer require generation-2/oauth2-generation-2
+    composer require d3strukt0r/oauth2-generation-2
 
 Or add it manually to the composer.json file
 
