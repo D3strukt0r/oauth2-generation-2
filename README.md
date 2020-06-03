@@ -28,7 +28,7 @@ This package provides Generation 2 OAuth 2.0 support for the PHP League's
 [scrutinizer]: https://scrutinizer-ci.com/g/D3strukt0r/oauth2-generation-2/
 [rtfd]: https://readthedocs.org/projects/oauth2-generation-2/
 
-[license-icon]: https://img.shields.io/packagist/l/d3strukt0r/oauth2-generation-2
+[license-icon]: https://img.shields.io/github/license/D3strukt0r/oauth2-generation-2
 [release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2
 [pre-release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2?include_prereleases
 [downloads-icon]: https://img.shields.io/packagist/dt/d3strukt0r/oauth2-generation-2
