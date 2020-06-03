@@ -23,9 +23,12 @@ install:
 
 script:
   - ./vendor/bin/phpunit
+  # this checks that the source code follows the syntax rules
   - ./vendor/bin/phpcs
   # this checks that the source code follows the Symfony Code Syntax rules
   - ./vendor/bin/php-cs-fixer fix --diff --dry-run -v
+  # this checks that the composer.json and composer.lock files are valid
+  - composer validate --strict
 
 after_script:
   - |

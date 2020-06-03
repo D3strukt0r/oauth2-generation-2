@@ -28,7 +28,7 @@
     },
     "require": {
         "php": ">=7.1",
-        "league/oauth2-client": "^2.3"
+        "league/oauth2-client": "^2.4"
     },
     "require-dev": {
         "ext-json": "*",
@@ -39,12 +39,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Generation2\\OAuth2\\Client\\": "src/"
+            "D3strukt0r\\OAuth2\\Client\\Provider\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Generation2\\OAuth2\\Client\\": "tests/"
+            "D3strukt0r\\OAuth2\\Client\\Provider\\": "tests/"
         }
     },
     "config": {

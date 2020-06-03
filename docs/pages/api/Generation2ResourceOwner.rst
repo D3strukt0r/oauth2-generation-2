@@ -4,7 +4,7 @@
 Generation2ResourceOwner
 ========================
 
-.. php:namespace:: Generation2\OAuth2\Client\Provider
+.. php:namespace:: D3strukt0r\OAuth2\Client\Provider
 .. php:class:: Generation2ResourceOwner
 
     The class ServerConnection is used to create a connection to a server.

@@ -4,7 +4,7 @@
 Generation2Provider
 ===================
 
-.. php:namespace:: Generation2\OAuth2\Client\Provider
+.. php:namespace:: D3strukt0r\OAuth2\Client\Provider
 .. php:class:: Generation2Provider
 
     Internal use for translations.

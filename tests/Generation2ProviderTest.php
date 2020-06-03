@@ -10,7 +10,7 @@
  * @link      https://github.com/D3strukt0r/oauth2-generation-2
  */
 
-namespace Generation2\OAuth2\Client\Provider;
+namespace D3strukt0r\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use Mockery;
@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @covers \Generation2\OAuth2\Client\Provider\Generation2Provider
+ * @covers \D3strukt0r\OAuth2\Client\Provider\Generation2Provider
  */
 final class Generation2ProviderTest extends TestCase
 {
