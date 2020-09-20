@@ -4,6 +4,8 @@
          xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
     <description>OpenID OAuth 2.0 Client Provider for The PHP League OAuth2-Client.</description>
 
+    <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility" />
+
     <file>src/</file>
     <file>tests/</file>
 
