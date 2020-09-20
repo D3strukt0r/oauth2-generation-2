@@ -51,7 +51,7 @@ OpenIDProvider
 
         Returns the URL for requesting the resource owner's details.
 
-        :param \\League\\OAuth2\\Client\\Token\\AccessToken $token: (Required) The received access token from the server
+        :param League\\OAuth2\\Client\\Token\\AccessToken $token: (Required) The received access token from the server
 
         :returns: string — xxx
 
@@ -74,10 +74,10 @@ OpenIDProvider
 
         Checks a provider response for errors.
 
-        :param \\Psr\\Http\\Message\\ResponseInterface $response: (Required) The response from the server
+        :param Psr\\Http\\Message\\ResponseInterface $response: (Required) The response from the server
         :param array|string $data: (Required) Parsed response data
 
-        :throws: :php:exc:`\\League\\OAuth2\\Client\\Provider\\Exception\\IdentityProviderException`
+        :throws: :php:exc:`League\\OAuth2\\Client\\Provider\\Exception\\IdentityProviderException`
 
         :returns: void — xxx
 
@@ -86,6 +86,6 @@ OpenIDProvider
         Generates a resource owner object from a successful resource owner details request.
 
         :param array $response: (Required) Response data from server
-        :param \\League\\OAuth2\\Client\\Token\\AccessToken $token: (Required) The used access token
+        :param League\\OAuth2\\Client\\Token\\AccessToken $token: (Required) The used access token
 
-        :returns: :php:class:`\\League\\OAuth2\\Client\\Provider\\ResourceOwnerInterface` — xxx
+        :returns: :php:class:`League\\OAuth2\\Client\\Provider\\ResourceOwnerInterface` — xxx
