@@ -1,11 +1,11 @@
 **\\Generation2\\OAuth2\\Client\\Provider**
 
-===================
-Generation2Provider
-===================
+==============
+OpenIDProvider
+==============
 
 .. php:namespace:: D3strukt0r\OAuth2\Client\Provider
-.. php:class:: Generation2Provider
+.. php:class:: OpenIDProvider
 
     Internal use for translations.
 

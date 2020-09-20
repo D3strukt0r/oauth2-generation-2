@@ -7,5 +7,5 @@
 .. toctree::
     :maxdepth: 1
 
-    Generation2Provider
-    Generation2ResourceOwner
+    OpenIDProvider
+    OpenIDResourceOwner

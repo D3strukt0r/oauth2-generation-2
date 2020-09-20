@@ -1,55 +1,38 @@
-# Generation 2 provider for OAuth 2.0 Client
+# OpenID provider for OAuth 2.0 Client
 
-This package provides Generation 2 OAuth 2.0 support for the PHP League's 
+This package provides OpenID OAuth 2.0 support for the PHP League's 
 [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
 
-**Project**
+Project
 
-| [License][license]       | Versions ([Packagist][packagist])                                                                       | Downloads ([Packagist][packagist])        | Required PHP Version              |
-|--------------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------|-----------------------------------|
-| ![License][license-icon] | Release: ![Version][release-icon]<br>Pre-Release: ![Version (including pre-releases)][pre-release-icon] | ![Downloads on Packagist][downloads-icon] | ![Required PHP version][php-icon] |
+[![License](https://img.shields.io/github/license/D3strukt0r/oauth2-openid)][license]
+[![Version](https://img.shields.io/packagist/v/d3strukt0r/oauth2-openid?label=latest%20release)][packagist]
+[![Version (including pre-releases)](https://img.shields.io/packagist/v/D3strukt0r/oauth2-openid?include_prereleases&label=latest%20pre-release)][packagist]
+[![Downloads on Packagist](https://img.shields.io/packagist/dt/d3strukt0r/oauth2-openid)][packagist]
+[![Required PHP version](https://img.shields.io/packagist/php-v/d3strukt0r/oauth2-openid)][packagist]
 
-**master**-branch (alias stable, latest)
+master-branch (alias stable, latest)
 
-| [Travis CI][travis]                        | [Coveralls][coveralls]              | [Scrutinizer CI][scrutinizer]                                                                                   | [Read the Docs][rtfd]                  |
-|--------------------------------------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------|
-| ![Travis build status][travis-master-icon] | ![Coveralls][coveralls-master-icon] | ![Scrutinizer build status][scrutinizer-master-icon]<br>![Scrutinizer code quality][scrutinizer-cc-master-icon] | ![Docs build status][rtfd-master-icon] |
+[![GH Action CI/CD](https://github.com/D3strukt0r/oauth2-openid/workflows/CI/CD/badge.svg?branch=master)][gh-action]
+[![Coveralls](https://img.shields.io/coveralls/github/D3strukt0r/oauth2-openid/master)][coveralls]
+[![Scrutinizer build status](https://img.shields.io/scrutinizer/build/g/D3strukt0r/oauth2-openid/master?label=scrutinizer%20build)][scrutinizer]
+[![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/D3strukt0r/oauth2-openid/master?label=scrutinizer%20code%20quality)][scrutinizer]
+[![Codacy grade](https://img.shields.io/codacy/grade/663387eedbbe4732bca55ad70d906c69/master?label=codacy%20code%20quality)][codacy]
+[![Docs build status](https://img.shields.io/readthedocs/oauth2-openid/stable)][rtfd]
 
-**develop**-branch (alias nightly)
+<!--
+develop-branch (alias nightly)
 
-| [Travis CI][travis]                         | [Coveralls][coveralls]               | [Scrutinizer CI][scrutinizer]                                                                                     | [Read the Docs][rtfd]                   |
-|---------------------------------------------|--------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| ![Travis build status][travis-develop-icon] | ![Coveralls][coveralls-develop-icon] | ![Scrutinizer build status][scrutinizer-develop-icon]<br>![Scrutinizer code quality][scrutinizer-cc-develop-icon] | ![Docs build status][rtfd-develop-icon] |
+[![GH Action CI/CD](https://github.com/D3strukt0r/oauth2-openid/workflows/CI/CD/badge.svg?branch=develop)][gh-action]
+[![Coveralls](https://img.shields.io/coveralls/github/D3strukt0r/oauth2-openid/develop)][coveralls]
+[![Scrutinizer build status](https://img.shields.io/scrutinizer/build/g/D3strukt0r/oauth2-openid/develop?label=scrutinizer%20build)][scrutinizer]
+[![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/D3strukt0r/oauth2-openid/develop?label=scrutinizer%20code%20quality)][scrutinizer]
+[![Codacy grade](https://img.shields.io/codacy/grade/663387eedbbe4732bca55ad70d906c69/develop?label=codacy%20code%20quality)][codacy]
+[![Docs build status](https://img.shields.io/readthedocs/oauth2-openid/latest)][rtfd]
+-->
 
-[license]: https://github.com/D3strukt0r/oauth2-generation-2/blob/master/LICENSE.txt
-[packagist]: https://packagist.org/packages/d3strukt0r/oauth2-generation-2
-[travis]: https://travis-ci.com/D3strukt0r/oauth2-generation-2
-[coveralls]: https://coveralls.io/github/D3strukt0r/oauth2-generation-2
-[scrutinizer]: https://scrutinizer-ci.com/g/D3strukt0r/oauth2-generation-2/
-[rtfd]: https://readthedocs.org/projects/oauth2-generation-2/
-
-[license-icon]: https://img.shields.io/github/license/D3strukt0r/oauth2-generation-2
-[release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2
-[pre-release-icon]: https://img.shields.io/packagist/v/d3strukt0r/oauth2-generation-2?include_prereleases
-[downloads-icon]: https://img.shields.io/packagist/dt/d3strukt0r/oauth2-generation-2
-[php-icon]: https://img.shields.io/packagist/php-v/d3strukt0r/oauth2-generation-2
-[travis-master-icon]: https://img.shields.io/travis/com/D3strukt0r/oauth2-generation-2/master
-[travis-develop-icon]: https://img.shields.io/travis/com/D3strukt0r/oauth2-generation-2/develop
-[coveralls-master-icon]: https://img.shields.io/coveralls/github/D3strukt0r/oauth2-generation-2/master
-[coveralls-develop-icon]: https://img.shields.io/coveralls/github/D3strukt0r/oauth2-generation-2/develop
-[scrutinizer-master-icon]: https://img.shields.io/scrutinizer/build/g/D3strukt0r/oauth2-generation-2/master
-[scrutinizer-develop-icon]: https://img.shields.io/scrutinizer/build/g/D3strukt0r/oauth2-generation-2/develop
-[scrutinizer-cc-master-icon]: https://img.shields.io/scrutinizer/quality/g/D3strukt0r/oauth2-generation-2/master
-[scrutinizer-cc-develop-icon]: https://img.shields.io/scrutinizer/quality/g/D3strukt0r/oauth2-generation-2/develop
-[rtfd-master-icon]: https://img.shields.io/readthedocs/oauth2-generation-2/stable
-[rtfd-develop-icon]: https://img.shields.io/readthedocs/oauth2-generation-2/latest
-
-This package is compliant with [PSR-1][], [PSR-2][] and [PSR-4][]. If you notice compliance oversights, please send
+This package is compliant with [PSR-1][PSR-1], [PSR-2][PSR-2] and [PSR-4][PSR-4]. If you notice compliance oversights, please send
 a patch via pull request.
-
-[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
-[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
-[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 
 ## Getting Started
 
@@ -57,21 +40,21 @@ a patch via pull request.
 
 The following versions of PHP are supported.
 
-* PHP 7.1
-* PHP 7.2
-* PHP 7.3
-* PHP 7.4
-* HHVM
+-   PHP 7.1
+-   PHP 7.2
+-   PHP 7.3
+-   PHP 7.4
+-   HHVM
 
-[Generation 2 App](https://account.generation-2.org/p/developer-create-application) will also need to be set up, which
+[OpenID App](https://openid.manuele-vaccari.ch/p/developer-create-application) will also need to be set up, which
 will provide you with the `{app-id}` and `{app-secret}` required (see [Usage](#usage) below).
 
 ### Installing
 
 To install, use composer:
 
-```bash
-composer require d3strukt0r/oauth2-generation-2
+```shell
+composer require d3strukt0r/oauth2-openid
 ```
 
 ### Usage
@@ -203,39 +186,37 @@ $authorizationUrl = $provider->getAuthorizationUrl([
         'user:id user:email',
     ]
 ]);
-header('Location: '.$authorizationUrl);
+header('Location: ' . $authorizationUrl);
 exit;
 ```
 
 ## Running the tests
 
-```bash
-$ ./vendor/bin/phpunit
+```shell
+./vendor/bin/phpunit
 ```
 
 ## Built With
 
-* [PHP](https://www.php.net/) - Programming Language
-* [Composer](https://getcomposer.org/) - Dependency Management
-* [PHPUnit](https://phpunit.de/) - Testing the code
-* [Travis CI](https://travis-ci.com/) - Automatic CI (Testing)
+-   [PHP](https://www.php.net/) - Programming Language
+-   [Composer](https://getcomposer.org/) - Dependency Management
+-   [PHPUnit](https://phpunit.de/) - Testing the code
+-   [Github Actions](https://github.com/features/actions) - Automatic CI (Testing)
+-   [Read the docs](https://readthedocs.org) - Documentation
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull
-requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the
-[tags on this repository](https://github.com/D3strukt0r/oauth2-generation-2/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/D3strukt0r/votifier-client-php/tags).
 
 ## Authors
 
-* **Manuele Vaccari** - [D3strukt0r](https://github.com/D3strukt0r) - *Initial work*
+-   **Manuele Vaccari** - [D3strukt0r](https://github.com/D3strukt0r) - _Initial work_
 
-See also the list of [contributors](https://github.com/D3strukt0r/oauth2-generation-2/contributors) who participated in
-this project.
+See also the list of [contributors](https://github.com/D3strukt0r/oauth2-openid/contributors) who participated in this project.
 
 ## License
 
@@ -243,6 +224,18 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+-   Hat tip to anyone whose code was used
+-   Inspiration
+-   etc
+
+[license]: https://github.com/D3strukt0r/oauth2-openid/blob/master/LICENSE.txt
+[packagist]: https://packagist.org/packages/d3strukt0r/oauth2-openid
+[gh-action]: https://github.com/D3strukt0r/oauth2-openid/actions
+[coveralls]: https://coveralls.io/github/D3strukt0r/oauth2-openid
+[scrutinizer]: https://scrutinizer-ci.com/g/D3strukt0r/oauth2-openid/
+[codacy]: https://www.codacy.com/manual/D3strukt0r/oauth2-openid
+[rtfd]: https://readthedocs.org/projects/oauth2-openid/
+
+[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
+[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md

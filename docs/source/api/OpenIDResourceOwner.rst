@@ -1,11 +1,11 @@
 **\\Generation2\\OAuth2\\Client\\Provider**
 
-========================
-Generation2ResourceOwner
-========================
+===================
+OpenIDResourceOwner
+===================
 
 .. php:namespace:: D3strukt0r\OAuth2\Client\Provider
-.. php:class:: Generation2ResourceOwner
+.. php:class:: OpenIDResourceOwner
 
     The class ServerConnection is used to create a connection to a server.
 
