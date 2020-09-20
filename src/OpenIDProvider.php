@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Generation 2 OAuth2 client
+ * OpenID OAuth2 client
  *
- * @package   OAuth2-Generation2
+ * @package   OAuth2-OpenID
  * @author    Manuele Vaccari <manuele.vaccari@gmail.com>
  * @copyright Copyright (c) 2017-2020 Manuele Vaccari <manuele.vaccari@gmail.com>
- * @license   https://github.com/D3strukt0r/oauth2-generation-2/blob/master/LICENSE.txt GNU General Public License v3.0
- * @link      https://github.com/D3strukt0r/oauth2-generation-2
+ * @license   https://github.com/D3strukt0r/oauth2-openid/blob/master/LICENSE.txt GNU General Public License v3.0
+ * @link      https://github.com/D3strukt0r/oauth2-openid
  */
 
 namespace D3strukt0r\OAuth2\Client\Provider;
@@ -22,7 +22,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * The Class in which all user information will be stored.
  */
-class Generation2Provider extends AbstractProvider
+class OpenIDProvider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
@@ -33,14 +33,14 @@ class Generation2Provider extends AbstractProvider
      *
      * @var string
      */
-    protected $host = 'https://account.generation-2.org';
+    protected $host = 'https://openid.manuele-vaccari.ch';
 
     /**
      * Gets host.
      *
-     * @return string
+     * @return string returns the host
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
@@ -50,9 +50,9 @@ class Generation2Provider extends AbstractProvider
      *
      * @param string $host The domain for accessing the user data
      *
-     * @return $this
+     * @return $this returns the class itself, for doing multiple things at once
      */
-    public function setHost($host)
+    public function setHost(string $host): self
     {
         $this->host = $host;
 
@@ -64,11 +64,11 @@ class Generation2Provider extends AbstractProvider
      *
      * Eg. https://oauth.service.com/authorize
      *
-     * @return string
+     * @return string returns the URL for authorization
      */
     public function getBaseAuthorizationUrl()
     {
-        return $this->host.'/oauth/authorize';
+        return $this->host . '/oauth/authorize';
     }
 
     /**
@@ -78,11 +78,11 @@ class Generation2Provider extends AbstractProvider
      *
      * @param array $params Special parameters
      *
-     * @return string
+     * @return string returns the URL to retrieve the access token
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return $this->host.'/oauth/token';
+        return $this->host . '/oauth/token';
     }
 
     /**
@@ -90,11 +90,11 @@ class Generation2Provider extends AbstractProvider
      *
      * @param AccessToken $token The received access token from the server
      *
-     * @return string
+     * @return string returns the URL to retrieve the resources
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return $this->host.'/oauth/resource';
+        return $this->host . '/oauth/resource';
     }
 
     /**
@@ -103,7 +103,7 @@ class Generation2Provider extends AbstractProvider
      * This should only be the scopes that are required to request the details
      * of the resource owner, rather than all the available scopes.
      *
-     * @return array
+     * @return array returns the default scopes
      */
     protected function getDefaultScopes()
     {
@@ -113,7 +113,7 @@ class Generation2Provider extends AbstractProvider
     /**
      * Get the string used to separate scopes.
      *
-     * @return string
+     * @return string returns the separator required for the scopes
      */
     protected function getScopeSeparator()
     {
@@ -130,13 +130,14 @@ class Generation2Provider extends AbstractProvider
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
+        $errorMessage = null;
         if ($response->getStatusCode() >= 400) {
             $errorMessage = isset($data['message']) ? $data['message'] : $response->getReasonPhrase();
         } elseif (isset($data['error'])) {
             $errorMessage = isset($data['error']) ? $data['error'] : $response->getReasonPhrase();
         }
 
-        if (isset($errorMessage)) {
+        if (null !== $errorMessage) {
             throw new IdentityProviderException($errorMessage, $response->getStatusCode(), $response->getBody());
         }
     }
@@ -148,10 +149,10 @@ class Generation2Provider extends AbstractProvider
      * @param array       $response Response data from server
      * @param AccessToken $token    The used access token
      *
-     * @return ResourceOwnerInterface
+     * @return ResourceOwnerInterface returns the resources
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new Generation2ResourceOwner($response);
+        return new OpenIDResourceOwner($response);
     }
 }

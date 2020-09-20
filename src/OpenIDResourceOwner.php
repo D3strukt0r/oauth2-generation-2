@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Generation 2 OAuth2 client
+ * OpenID OAuth2 client
  *
- * @package   OAuth2-Generation2
+ * @package   OAuth2-OpenID
  * @author    Manuele Vaccari <manuele.vaccari@gmail.com>
  * @copyright Copyright (c) 2017-2020 Manuele Vaccari <manuele.vaccari@gmail.com>
- * @license   https://github.com/D3strukt0r/oauth2-generation-2/blob/master/LICENSE.txt GNU General Public License v3.0
- * @link      https://github.com/D3strukt0r/oauth2-generation-2
+ * @license   https://github.com/D3strukt0r/oauth2-openid/blob/master/LICENSE.txt GNU General Public License v3.0
+ * @link      https://github.com/D3strukt0r/oauth2-openid
  */
 
 namespace D3strukt0r\OAuth2\Client\Provider;
@@ -18,7 +18,7 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 /**
  * The Class which can be used with league/oauth2-client.
  */
-class Generation2ResourceOwner implements ResourceOwnerInterface
+class OpenIDResourceOwner implements ResourceOwnerInterface
 {
     /**
      * Raw response.
@@ -30,7 +30,7 @@ class Generation2ResourceOwner implements ResourceOwnerInterface
     /**
      * Creates new resource owner.
      *
-     * @param array $response Data received from the server about the user
+     * @param array $response Data received from the server appendix the user
      */
     public function __construct(array $response = [])
     {
@@ -40,69 +40,69 @@ class Generation2ResourceOwner implements ResourceOwnerInterface
     /**
      * Returns the identifier of the authorized resource owner.
      *
-     * @return int|null
+     * @return int|null returns the ID
      */
-    public function getId()
+    public function getId(): ?int
     {
         return (int) $this->response['id'] ?: null;
     }
 
     /**
-     * Return the username.
+     * Returns the username.
      *
-     * @return string|null
+     * @return string|null returns the username
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->response['username'] ?: null;
     }
 
     /**
-     * Return the email.
+     * Returns the email.
      *
-     * @return string|null
+     * @return string|null returns the email
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['email'] ?: null;
     }
 
     /**
-     * Return the first name.
+     * Returns the first name.
      *
-     * @return string|null
+     * @return string|null returns the first name
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->response['name'] ?: null;
     }
 
     /**
-     * Return the surname.
+     * Returns the surname.
      *
-     * @return string|null
+     * @return string|null returns the surname
      */
-    public function getSurname()
+    public function getSurname(): ?string
     {
         return $this->response['surname'] ?: null;
     }
 
     /**
-     * Return the birthday.
+     * Returns the birthday.
      *
-     * @return DateTime|null
+     * @return DateTime|null returns the birthday
      */
-    public function getBirthday()
+    public function getBirthday(): ?DateTime
     {
         return $this->response['birthday'] ? (new DateTime())->setTimestamp($this->response['birthday']) : null;
     }
 
     /**
-     * Return the surname.
+     * Returns the currently active address.
      *
-     * @return array|null
+     * @return array|null return the currently active address
      */
-    public function getActiveAddress()
+    public function getActiveAddress(): ?array
     {
         if (null === $this->getAddresses()) {
             return null;
@@ -122,21 +122,21 @@ class Generation2ResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Return the surname.
+     * Returns all the addresses.
      *
-     * @return array|null
+     * @return array|null return all the addresses
      */
-    public function getAddresses()
+    public function getAddresses(): ?array
     {
         return $this->response['addresses'] ?: null;
     }
 
     /**
-     * Return the subscription.
+     * Returns the subscription.
      *
-     * @return string|null
+     * @return string|null return the subscription
      */
-    public function getSubscription()
+    public function getSubscription(): ?string
     {
         return $this->response['subscription_type'] ?: null;
     }
@@ -144,9 +144,9 @@ class Generation2ResourceOwner implements ResourceOwnerInterface
     /**
      * Return all of the owner details available as an array.
      *
-     * @return array
+     * @return array return all the information as an array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
