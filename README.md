@@ -31,7 +31,7 @@ develop-branch (alias nightly)
 [![Docs build status](https://img.shields.io/readthedocs/oauth2-openid/latest)][rtfd]
 -->
 
-This package is compliant with [PSR-1][PSR-1], [PSR-2][PSR-2] and [PSR-4][PSR-4]. If you notice compliance oversights, please send
+This package is compliant with [PSR-1][psr-1], [PSR-2][psr-2] and [PSR-4][psr-4]. If you notice compliance oversights, please send
 a patch via pull request.
 
 ## Getting Started
@@ -236,6 +236,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 [codacy]: https://www.codacy.com/manual/D3strukt0r/oauth2-openid
 [rtfd]: https://readthedocs.org/projects/oauth2-openid/
 
-[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
-[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
-[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
+[psr-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+[psr-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
+[psr-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
