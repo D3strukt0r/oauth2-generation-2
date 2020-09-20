@@ -1,6 +1,6 @@
 {
-    "name": "d3strukt0r/oauth2-generation-2",
-    "description": "Generation 2 OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+    "name": "d3strukt0r/oauth2-openid",
+    "description": "OpenID OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
     "type": "library",
     "keywords": [
         "oauth",
@@ -8,7 +8,7 @@
         "client",
         "authorization",
         "authorisation",
-        "generation-2"
+        "openid"
     ],
     "license": "GPL-3.0-or-later",
     "authors": [
@@ -21,19 +21,21 @@
     ],
     "support": {
         "email": "manuele.vaccari@gmail.com",
-        "issues": "https://github.com/D3strukt0r/oauth2-generation-2/issues",
-        "wiki": "https://github.com/D3strukt0r/oauth2-generation-2/wiki",
-        "source": "https://github.com/D3strukt0r/oauth2-generation-2",
-        "docs": "https://oauth2-generation-2-docs.manuele-vaccari.ch/en/stable/"
+        "issues": "https://github.com/D3strukt0r/oauth2-openid/issues",
+        "wiki": "https://github.com/D3strukt0r/oauth2-openid/wiki",
+        "source": "https://github.com/D3strukt0r/oauth2-openid",
+        "docs": "https://oauth2-openid.readthedocs.io"
     },
     "require": {
         "php": ">=7.1",
+        "ext-date": "*",
         "league/oauth2-client": "^2.4"
     },
     "require-dev": {
         "ext-json": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "0.6.0",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "mockery/mockery": "^1.0",
+        "phpcompatibility/php-compatibility": "*",
         "phpunit/phpunit": "^9 || ^8 || ^7",
         "squizlabs/php_codesniffer": "^3.5"
     },
@@ -52,13 +54,26 @@
     },
     "scripts": {
         "test": "phpunit",
-        "check": [
-            "phpcs",
-            "php-cs-fixer fix --diff --dry-run -v"
-        ],
-        "fix": [
-            "phpcbf",
-            "php-cs-fixer fix"
+        "check": "phpcs",
+        "check2": "php-cs-fixer fix --diff --dry-run -v",
+        "fix": "phpcbf",
+        "fix2": "php-cs-fixer fix"
+    },
+    "archive": {
+        "exclude": [
+            "/.idea",
+            "/build",
+            "/docs",
+            "/tests",
+            ".editorconfig",
+            ".gitignore",
+            ".php_cs.dist",
+            ".phpcs.xml",
+            ".readthedocs.yml",
+            ".scrutinizer.yml",
+            "CONTRIBUTING.md",
+            "phpunit.xml.dist",
+            "README.md"
         ]
     }
 }
