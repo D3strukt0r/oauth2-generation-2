@@ -10,6 +10,7 @@
         "authorisation",
         "openid"
     ],
+    "homepage": "https://github.com/D3strukt0r/oauth2-openid",
     "license": "GPL-3.0-or-later",
     "authors": [
         {
@@ -26,6 +27,16 @@
         "source": "https://github.com/D3strukt0r/oauth2-openid",
         "docs": "https://oauth2-openid.readthedocs.io"
     },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/D3strukt0r"
+        },
+        {
+            "type": "patreon",
+            "url": "https://patreon.com/d3strukt0r"
+        }
+    ],
     "require": {
         "php": ">=7.1",
         "ext-date": "*",
@@ -61,19 +72,19 @@
     },
     "archive": {
         "exclude": [
+            "/.github",
             "/.idea",
-            "/build",
             "/docs",
             "/tests",
             ".editorconfig",
+            ".gitattributes",
             ".gitignore",
             ".php_cs.dist",
             ".phpcs.xml",
             ".readthedocs.yml",
             ".scrutinizer.yml",
             "CONTRIBUTING.md",
-            "phpunit.xml.dist",
-            "README.md"
+            "phpunit.xml.dist"
         ]
     }
 }
